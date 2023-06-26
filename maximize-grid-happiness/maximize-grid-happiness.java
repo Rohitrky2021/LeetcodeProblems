@@ -1,89 +1,122 @@
 class Solution {
+    /**
+     *
+     Just DFS+Memo
+     For each cell we have 3 states -> 0: empty, 1: intro, 2: extro
+     Only previous N bits matter (previous 1 is left, previous N is up)
+     Naturally, we use Ternary to construct our prevN bit mask
+     There are totally 3^5 = 243 combinations, meaning the prevN value is bounded by 243. (n <= 5)
+
+     For each cell: try all possibilities: 0, 1 or 2
+     0: do nothing, move our prevN bit mask with new 0 bit.
+     1: happiness 120, move our prevN bit mask with new 1 bit.
+     2: happiness 40, move our prevN bit mask with new 2 bit.
+     Check up and left cells to determine how many extra happiness need to be added/subtracted.
+
+     * @param m
+     * @param n
+     * @param introvertsCount
+     * @param extrovertsCount
+     * @return
+     */
     public int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
-        // introvert = -1, extrovert = 1
-        return dfs(m, n, 0, introvertsCount, extrovertsCount, 0, 0, new Integer[m+1][introvertsCount+1][extrovertsCount+1][(1 << (n+1))][(1 << (n+1))]);
+        return helper(m, n, 0, 0, introvertsCount, extrovertsCount, 0,
+                new Integer[m][n][introvertsCount + 1][extrovertsCount + 1][243]);
     }
-    public int dfs(int m, int n, int row, int in_count, int ex_count, int prev_in_pos, int prev_ex_pos, Integer[][][][][] dp) {
-        if(dp[row][in_count][ex_count][prev_in_pos][prev_ex_pos] != null)
-            return dp[row][in_count][ex_count][prev_in_pos][prev_ex_pos];
-        if((in_count == 0 && ex_count == 0) || (row == m)) 
+
+    int helper(int m, int n, int x, int y, int iCount, int eCount, int prevN, Integer[][][][][] dp) {
+        // next row
+        if (y == n) {
+            x++;
+            y = 0;
+        }
+
+        // out of people
+        if (iCount == 0 && eCount == 0)
             return 0;
-        List<int[]> possible_permutations = new ArrayList<int[]>();  // get all possible ways to fill a row**** with given number of introverts & extroverts
-        int[] aux = new int[n];
-        getPermutations(in_count, ex_count, aux, 0, possible_permutations, n);
-        
-        int ans = 0;
-        for(int[] possible : possible_permutations) {
-            int curr_in_count = in_count, curr_ex_count = ex_count;
-            int curr_in_pos = 0, curr_ex_pos = 0;
-            for(int i = 0; i < n; i++) {
-                if(possible[i] == 0)
-                    continue;
-                if(possible[i] == -1) {
-                    curr_in_count--;
-                    curr_in_pos |= (1 << i);
-                }
-                else {
-                    curr_ex_count--;
-                    curr_ex_pos |= (1 << i);
-                }
+
+        // out of the matrix
+        if (x == m)
+            return 0;
+
+        // Memo
+        if (dp[x][y][iCount][eCount][prevN] != null)
+            return dp[x][y][iCount][eCount][prevN];
+
+        // leave the cell empty
+        int res = helper(m, n, x, y + 1, iCount, eCount, set(prevN, 0), dp);
+
+        int up = get(prevN, n - 1); // up bit is at (n - 1);
+        int left = get(prevN, 0); // the rightmost is left;
+
+        // put an introverts in the cell
+        if (iCount > 0) {
+            int tmp = prevN;
+
+            prevN = set(prevN, 1);
+            int addOn = 120; // newly added cell
+
+            if (x - 1 >= 0 && up != 0) {
+                addOn -= 30; // sub self
+                if (up == 1)
+                    addOn -= 30;
+                else
+                    addOn += 20;
             }
-            int curr_row_val = calculate(possible, prev_in_pos, prev_ex_pos, n);            
-            int rest_rows_val = dfs(m, n, row+1, curr_in_count, curr_ex_count, curr_in_pos, curr_ex_pos, dp);
-            ans = Math.max(ans, curr_row_val + rest_rows_val);
+
+            if (y - 1 >= 0 && left != 0) {
+                addOn -= 30;
+                if (left == 1)
+                    addOn -= 30;
+                else
+                    addOn += 20;
+            }
+
+            res = Math.max(res, helper(m, n, x, y + 1, iCount - 1, eCount, prevN, dp) + addOn);
+
+            // setback for future
+            prevN = tmp;
         }
-        return dp[row][in_count][ex_count][prev_in_pos][prev_ex_pos] = ans;
+
+        // put an extroverts in the cell
+        if (eCount > 0) {
+            int tmp = prevN;
+
+            prevN = set(prevN, 2);
+            int addOn = 40;
+
+            if (x - 1 >= 0 && up != 0) {
+                addOn += 20; // add self
+                if (up == 1)
+                    addOn -= 30;
+                else
+                    addOn += 20;
+            }
+
+            if (y - 1 >= 0 && left != 0) {
+                addOn += 20;
+                if (left == 1)
+                    addOn -= 30;
+                else
+                    addOn += 20;
+            }
+
+            res = Math.max(res, helper(m, n, x, y + 1, iCount, eCount - 1, prevN, dp) + addOn);
+
+            // setback for future
+            prevN = tmp;
+        }
+
+        return dp[x][y][iCount][eCount][prevN] = res;
     }
-    // for each row, find happiness (keeping in account : left, right and upper neighors, for people in this row) and
-    //                              (keeping in account : lower neighbors for people in previous row)
-    public int calculate(int[] currRow, int prev_in_pos, int prev_ex_pos, int columns) {
-         int res = 0;
-         // vertical neighbors
-         for(int i = 0; i < columns; i++) {
-             if(currRow[i] == 0)                                continue;
-             if(currRow[i] == 1) {
-                 res += 40;
-                 if( (prev_in_pos & (1 << i)) != 0)             res += (20 - 30);       // -30 : because previous upper neighbor is introvert
-                 else if( (prev_ex_pos & (1 << i)) != 0 )       res += (20 + 20);
-             }
-             else {
-                 res += 120;
-                 if( (prev_in_pos & (1 << i)) != 0)             res += (-30 - 30);
-                 else if( (prev_ex_pos & (1 << i)) != 0 )       res += (-30 + 20);
-             }
-         }
-         // horizontal neighbors
-         for(int i = 0; i < columns; i++) {
-             if(currRow[i] == 0)                                continue;
-             if(currRow[i] == -1) {
-                 if(i-1 >= 0 && currRow[i-1] != 0)              res += (-30);
-                 if(i+1 < columns && currRow[i+1] != 0)         res += (-30);
-             }
-             else {
-                 if(i-1 >= 0 && currRow[i-1] != 0)              res += (20);
-                 if(i+1 < columns && currRow[i+1] != 0)         res += (20);
-             }
-         }
-         return res;
+
+    int get(int prevN, int i) {
+        prevN /= (int) Math.pow(3, i);
+
+        return prevN % 3;
     }
-    public void getPermutations(int in_count, int ex_count, int[] curr, int index, List<int[]> possible_permutations, int len) {
-        if((in_count == 0 && ex_count == 0) || index == len) {
-            int[] arr = new int[len];
-            for(int i = 0; i < len; i++)
-                arr[i] = curr[i];
-            possible_permutations.add(arr);
-            return;
-        }
-        if(in_count > 0) {
-            curr[index] = -1;
-            getPermutations(in_count-1, ex_count, curr, index+1, possible_permutations, len);
-            curr[index] = 0;
-        }
-        if(ex_count > 0) {
-            curr[index] = 1;
-            getPermutations(in_count, ex_count-1, curr, index+1, possible_permutations, len);
-            curr[index] = 0;
-        }
-        getPermutations(in_count, ex_count, curr, index+1, possible_permutations, len);
+    
+    int set(int prevN, int val) {
+        return (prevN * 3 + val) % 243;
     }
 }
