@@ -3,20 +3,20 @@ import java.util.Set;
 
 class Solution {
     public int lengthOfLongestSubstring(String s) {
+        Set<Character> st = new HashSet<>();
         int maxLength = 0;
         int left = 0;
-        int right = 0;
-        Set<Character> characters = new HashSet<>();
         
-        while (right < s.length()) {
-            if (!characters.contains(s.charAt(right))) {
-                characters.add(s.charAt(right));
-                maxLength = Math.max(maxLength, characters.size());
-                right++;
-            } else {
-                characters.remove(s.charAt(left));
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+            
+            while (st.contains(c)) {
+                st.remove(s.charAt(left));
                 left++;
             }
+            
+            st.add(c);
+            maxLength = Math.max(maxLength, right - left + 1);
         }
         
         return maxLength;
