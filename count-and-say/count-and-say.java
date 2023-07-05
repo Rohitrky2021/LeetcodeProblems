@@ -1,17 +1,33 @@
 class Solution {
 
-    public String countAndSay(int n) {
-        if (n == 1) return "1";
-        String s = countAndSay(n - 1);
-        StringBuilder sb = new StringBuilder();
-        int count = 1;
-        for (int i = 1; i < s.length(); i++) {
-            if (s.charAt(i) == s.charAt(i - 1)) count++; else {
-                sb.append(count).append(s.charAt(i - 1));
-                count = 1;
-            }
+    public static String countAndSay(int n) {
+        if (n <= 0) {
+            return "";
         }
-        sb.append(count).append(s.charAt(s.length() - 1));
-        return sb.toString();
+
+        String currentTerm = "1"; // Base case
+
+        for (int i = 2; i <= n; i++) {
+            StringBuilder nextTerm = new StringBuilder();
+            int count = 1;
+            char prevDigit = currentTerm.charAt(0);
+
+            for (int j = 1; j < currentTerm.length(); j++) {
+                char currentDigit = currentTerm.charAt(j);
+
+                if (currentDigit == prevDigit) {
+                    count++;
+                } else {
+                    nextTerm.append(count).append(prevDigit);
+                    count = 1;
+                    prevDigit = currentDigit;
+                }
+            }
+
+            nextTerm.append(count).append(prevDigit);
+            currentTerm = nextTerm.toString();
+        }
+
+        return currentTerm;
     }
 }
