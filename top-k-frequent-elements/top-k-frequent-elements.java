@@ -13,7 +13,7 @@ public class Solution {
         }
 
         PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(
-            Comparator.comparingInt(frequencyMap::get)
+Comparator.comparingInt(num -> frequencyMap.get(num))
         );
 
         for (int num : frequencyMap.keySet()) {
