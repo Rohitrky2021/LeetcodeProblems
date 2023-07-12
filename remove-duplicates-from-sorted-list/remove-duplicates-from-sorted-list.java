@@ -47,7 +47,7 @@ class Solution {
                 current = current.next; // Move to the next non-duplicate node
             }
         }
-        
+        System.gc();
         return head;
     }
 }
