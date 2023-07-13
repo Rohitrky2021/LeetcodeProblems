@@ -1,7 +1,7 @@
 class Solution {
 
     public boolean canFinish(int numCourses, int[][] edges) {
-        Arrays.sort(edges, Comparator.comparingInt(o -> o[0]));
+        // Arrays.sort(edges, Comparator.comparingInt(o -> o[0]));
         int v = numCourses;
         // int[][] edges = {{0, 1}, {0, 3}, {1, 2}, {3, 2}, {3, 1}, {1, 0}};
 
