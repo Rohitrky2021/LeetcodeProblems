@@ -1,20 +1,30 @@
 class Solution {
-    public int findTargetSumWays(int[] nums, int target) {
-        return calculateWays(nums, target, 0);
-    }
 
-    private int calculateWays(int[] nums, int target, int i) {
-        if (i == nums.length) {
-            if (target == 0) {
-                return 1;
-            } else {
-                return 0;
+    public int findTargetSumWays(int[] nums, int target) {
+        int totalSum = 0;
+        for (int num : nums) {
+            totalSum += num;
+        }
+
+        // If the target sum is greater than the total sum or their difference is odd,
+        // it's not possible to achieve the target sum using the given array elements.
+        if (target < -totalSum || target > totalSum) {
+            return 0;
+        }
+        if (target > totalSum || (target + totalSum) % 2 != 0) {
+            return 0;
+        }
+
+        int subsetSum = (target + totalSum) / 2;
+        int[] dp = new int[subsetSum + 1];
+        dp[0] = 1;
+
+        for (int num : nums) {
+            for (int j = subsetSum; j >= num; j--) {
+                dp[j] += dp[j - num];
             }
         }
 
-        int sumWithAddition = calculateWays(nums, target - nums[i], i + 1);
-        int sumWithSubtraction = calculateWays(nums, target + nums[i], i + 1);
-
-        return sumWithAddition + sumWithSubtraction;
+        return dp[subsetSum];
     }
 }
