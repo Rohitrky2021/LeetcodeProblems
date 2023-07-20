@@ -3,6 +3,16 @@ import java.util.Deque;
 
 class Solution {
 
+    private static class Check {
+        int curr;
+        int real;
+
+        public Check(int[] asteroids, int n) {
+            this.curr = Math.abs(asteroids[n]);
+            this.real = asteroids[n];
+        }
+    }
+
     public int[] asteroidCollision(int[] asteroids) {
         int n = asteroids.length;
         Deque<Integer> stack = new ArrayDeque<>();
@@ -19,8 +29,7 @@ class Solution {
             } else if (stack.peek() == -curr) {
                 stack.pop();
             } else if (curr == Math.abs(stack.peek())) {
-                stack.pop(); // Remove the previous asteroid from the stack
-                continue;    // Skip the current asteroid as well
+                stack.pop(); // Pop the element from the stack, as both asteroids cancel each other out.
             }
         }
 
