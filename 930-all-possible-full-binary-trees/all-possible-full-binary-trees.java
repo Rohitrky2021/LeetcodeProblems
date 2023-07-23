@@ -23,9 +23,9 @@ class Solution {
  public List<TreeNode> allPossibleFBT(int n) {
 
 
-        if(n%2==0){
-            return new ArrayList<>();
-        }
+        // if(n%2==0){
+        //     return new ArrayList<>();
+        // }
         return helper(n);
 
 
