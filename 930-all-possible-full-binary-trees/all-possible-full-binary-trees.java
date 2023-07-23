@@ -33,10 +33,7 @@ class Solution {
     }
     public List<TreeNode> helper(int n) {
         if(n==1){
-            ArrayList<TreeNode> c=new ArrayList<>();
-            c.add(new TreeNode(0));
-           
-            return c;
+           return Arrays.asList(new TreeNode(0));
 
         }
         List<TreeNode> ans =new ArrayList<>();
@@ -48,9 +45,9 @@ class Solution {
             for(TreeNode l:left){
                 for(TreeNode r:right){
                     // TreeNode c=new TreeNode(0,l.left,r.right);
-                    TreeNode root=new TreeNode(0);
-                    root.left=l;
-                    root.right=r;
+                    TreeNode root=new TreeNode(0,l,r);
+                    // root.left=l;
+                    // root.right=r;
                     ans.add(root);
 
 
