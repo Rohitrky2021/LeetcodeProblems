@@ -21,15 +21,15 @@ class Solution {
         int l = 0;
         int r = arr.length - 1;
         int mid = l + (r - l) / 2;
-        while (l < r) {
+        while (l <= r) {
             if (arr[mid] > arr[mid + 1]) {
-                r = mid;
+                r = mid-1;
             } else {
                 l = mid + 1;
             }
 
             mid = l + (r - l) / 2;
         }
-        return l ;
+        return r+1;
     }
 }
