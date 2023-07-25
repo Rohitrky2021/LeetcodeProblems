@@ -30,6 +30,7 @@ class Solution {
 
             mid = l + (r - l) / 2;
         }
-        return r+1;
+        System.out.println(l+" "+r);
+        return l;
     }
 }
