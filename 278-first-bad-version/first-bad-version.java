@@ -16,7 +16,7 @@ public class Solution extends VersionControl {
 
             mid = l + (r - l) / 2;
         }
-        System.out.println(l + " " + r);
+        // System.out.println(l + " " + r);
         return l;
     }
 }
