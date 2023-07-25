@@ -12,8 +12,6 @@ class Solution {
             for (int i = 0; i < nums2.length; i++) {
                 if (hs.contains(nums2[i])) {
                     ans.add(nums2[i]);
-                }else{
-                    hs.remove(nums2[i]);
                 }
             }
         } else {
@@ -23,8 +21,6 @@ class Solution {
             for (int i = 0; i < nums1.length; i++) {
                 if (hs.contains(nums1[i])) {
                     ans.add(nums1[i]);
-                }else{
-                    hs.remove(nums1[i]);
                 }
             }
         }
