@@ -23,15 +23,15 @@ class Solution {
         return xor;
 
 }
-    public static boolean isSorted(int[] arr) {
-        int n = arr.length;
-        for (int i = 0; i < n - 1; i++) {
-            if (arr[i] > arr[i + 1]) {
-                return false;
-            }
-        }
-        return true;
-    }
+    // public static boolean isSorted(int[] arr) {
+    //     int n = arr.length;
+    //     for (int i = 0; i < n - 1; i++) {
+    //         if (arr[i] > arr[i + 1]) {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
       public static int findMax(int[] array) {
         if (array == null || array.length == 0) {
             throw new IllegalArgumentException("The array is empty.");
