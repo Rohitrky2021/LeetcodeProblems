@@ -3,7 +3,9 @@ class Solution {
     public int minSpeedOnTime(int[] dist, double hour) {
         //  public static void main(String[] args) {
         int l = 1;
-        int r = 10000000;int mins=-1;
+        int n=dist.length;
+        int r = (int)1e7;
+        int mins=-1;
         int mid = l + (r - l) / 2;
         while (l <= r) {
             if (helper(mid, dist, hour)) {
