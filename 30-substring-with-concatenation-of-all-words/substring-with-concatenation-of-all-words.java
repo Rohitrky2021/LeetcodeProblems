@@ -1,54 +1,29 @@
-import java.util.*;
-
 class Solution {
-    public List<Integer> findSubstring(String s, String[] words) {
-        int wl = words[0].length();
-        int wordn = words.length * wl;
-        int sn = s.length();
-        List<Integer> arr = new ArrayList<>();
+  public List<Integer> findSubstring(String s, String[] words) {
+    if (s.isEmpty() || words.length == 0)
+      return new ArrayList<>();
 
-        var frequencyMap = new HashMap<String, Integer>();
+    final int k = words.length;
+    final int n = words[0].length();
+    List<Integer> ans = new ArrayList<>();
+    Map<String, Integer> count = new HashMap<>();
 
-        for (String i : words) {
-            frequencyMap.put(i, frequencyMap.getOrDefault(i, 0) + 1);
-        }
+    for (final String word : words)
+      count.merge(word, 1, Integer::sum);
 
-        for (int i = 0; i <= sn - wordn; i++) {
-            var curr = new HashMap<String, Integer>();
-            int j;
-            for (j = 0; j < words.length; j++) {
-                int subind = i + j * wl;
-                var subs = s.substring(subind, subind + wl);
-
-                if (!frequencyMap.containsKey(subs)) {
-                    break;
-                }
-
-                curr.put(subs, curr.getOrDefault(subs, 0) + 1);
-
-                if (curr.get(subs) > frequencyMap.getOrDefault(subs, 0)) {
-                    break;
-                }
-            }
-            if (j == words.length ) {
-                arr.add(i);
-            }
-        }
-
-        return arr;
+    for (int i = 0; i <= s.length() - k * n; ++i) {
+      Map<String, Integer> seen = new HashMap<>();
+      int j = 0;
+      for (; j < k; ++j) {
+        final String word = s.substring(i + j * n, i + j * n + n);
+        seen.merge(word, 1, Integer::sum);
+        if (seen.get(word) > count.getOrDefault(word, 0))
+          break;
+      }
+      if (j == k)
+        ans.add(i);
     }
 
-    private boolean mapEquals(Map<String, Integer> map1, Map<String, Integer> map2) {
-        if (map1.size() != map2.size()) {
-            return false;
-        }
-        for (var entry : map1.entrySet()) {
-            String key = entry.getKey();
-            int value = entry.getValue();
-            if (map2.getOrDefault(key, 0) != value) {
-                return false;
-            }
-        }
-        return true;
-    }
+    return ans;
+  }
 }
