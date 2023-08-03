@@ -1,29 +1,33 @@
 class Solution {
-  public List<Integer> findSubstring(String s, String[] words) {
-    if (s.isEmpty() || words.length == 0)
-      return new ArrayList<>();
-
-    final int k = words.length;
-    final int n = words[0].length();
-    List<Integer> ans = new ArrayList<>();
-    Map<String, Integer> count = new HashMap<>();
-
-    for (final String word : words)
-      count.merge(word, 1, Integer::sum);
-
-    for (int i = 0; i <= s.length() - k * n; ++i) {
-      Map<String, Integer> seen = new HashMap<>();
-      int j = 0;
-      for (; j < k; ++j) {
-        final String word = s.substring(i + j * n, i + j * n + n);
-        seen.merge(word, 1, Integer::sum);
-        if (seen.get(word) > count.getOrDefault(word, 0))
-          break;
-      }
-      if (j == k)
-        ans.add(i);
+    public List<Integer> findSubstring(String s, String[] words) {
+        int wordLength = words[0].length();
+        int totalWordsLength = wordLength * words.length;
+        Map<String, Integer> hash = new HashMap<>();
+        List<Integer> ans = new ArrayList<>();
+        char[] s2 = s.toCharArray();
+        for (String value : words) {
+            hash.putIfAbsent(value, hash.size());
+        }
+        int[] count = new int[hash.size()];
+        for (String word : words) {
+            count[hash.get(word)]++;
+        }
+        for (int i = 0; i < wordLength; i++) {
+            for (int j = i; j <= s.length() - totalWordsLength; j += wordLength) {
+                int[] localCount = new int[hash.size()];
+                for (int k = j + totalWordsLength - wordLength; k >= j; k -= wordLength) {
+                    String str = new String(s2, k, wordLength);     // [ k, k+wordLength )
+                    Integer key = hash.get(str);
+                    if (!(key != null && count[key] >= ++localCount[key])) {
+                        j = k;
+                        break;
+                    }
+                    if (j == k) {
+                        ans.add(j);
+                    }
+                }
+            }
+        }
+        return ans;
     }
-
-    return ans;
-  }
 }
