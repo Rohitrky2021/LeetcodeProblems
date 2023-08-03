@@ -1,5 +1,7 @@
 import java.util.*;
 
+// CAn use BIGINTEGER IN exam to solve this 
+
 class Solution {
     public String addStrings(String num1, String num2) {
         int carry = 0;
