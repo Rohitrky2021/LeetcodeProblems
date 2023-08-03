@@ -30,7 +30,7 @@ class Solution {
                     break;
                 }
             }
-            if (j == words.length && mapEquals(curr, frequencyMap)) {
+            if (j == words.length ) {
                 arr.add(i);
             }
         }
