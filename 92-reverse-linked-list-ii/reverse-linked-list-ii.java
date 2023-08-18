@@ -8,74 +8,79 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class Solution {
-
-    public ListNode reverseBetween(ListNode head, int left, int right) {
-        int i = 1;
-        ListNode start = null;
-        ListNode prev = null;
-        ListNode curr = head;
-
-        // Find the node just before the left position
-        while (i < left) {
-            i++;
-            prev = curr;
-            curr = curr.next;
-        }
-        
-        ListNode beforeStart = prev; // Store the node before the reversed sublist
-        ListNode end = curr; // Store the node at the left position
-        
-        // Reverse the sublist
-        while (i >= left && i <= right) {
-            i++;
-            ListNode next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
-        
-        // Connect the reversed sublist with the rest of the list
-        if (beforeStart != null) {
-            beforeStart.next = prev;
-        } else {
-            head = prev; // If reversing from the beginning, update head
-        }
-        
-        end.next = curr; // Connect the end of reversed sublist with the rest
-        
-        return head;
-    }
-}
-
 // class Solution {
 
 //     public ListNode reverseBetween(ListNode head, int left, int right) {
 //         int i = 1;
 //         ListNode start = null;
-//         ListNode s2 = null;
 //         ListNode prev = null;
-//         ListNode curr =head;
-//         ListNode next;
-//         while(i<left){
+//         ListNode curr = head;
+
+//         // Find the node just before the left position
+//         while (i < left) {
 //             i++;
-//             prev=curr;
-//             curr=curr.next;
+//             prev = curr;
+//             curr = curr.next;
 //         }
-//             start=curr;
-//             s2=start.next;
-//         while (i>=left && i<=right) {
+        
+//         ListNode beforeStart = prev; // Store the node before the reversed sublist
+//         ListNode end = curr; // Store the node at the left position
+        
+//         // Reverse the sublist
+//         while (i >= left && i <= right) {
 //             i++;
-//             next = curr.next;
+//             ListNode next = curr.next;
 //             curr.next = prev;
 //             prev = curr;
 //             curr = next;
 //         }
-//         start.next=prev;
-//         s2.next=curr;
+        
+//         // Connect the reversed sublist with the rest of the list
+//         if (beforeStart != null) {
+//             beforeStart.next = prev;
+//         } else {
+//             head = prev; // If reversing from the beginning i.e blue part apna head se he start ho jaaye tho, update head
+//         }
+        
+//         end.next = curr; // Connect the end of reversed sublist with the rest
+        
 //         return head;
 //     }
 // }
+
+class Solution {
+
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        int i = 1;
+        ListNode start = null;
+        ListNode s2 = null;
+        ListNode prev = null;
+        ListNode curr =head;
+        ListNode next;
+        while(i<left){
+            i++;
+            prev=curr;
+            curr=curr.next;
+        }
+            start=prev;
+            s2=curr;
+        while (i>=left && i<=right) {
+            i++;
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        // start.next=prev;
+            if (start != null) {
+            start.next = prev;
+        } else {
+            head = prev; // If reversing from the beginning i.e blue part apna head se he start ho jaaye tho, update head
+        }
+        s2.next=curr;
+        return head;
+    }
+}
 
 // Changes and explanations:
 
