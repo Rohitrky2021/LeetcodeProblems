@@ -20,18 +20,30 @@ class Solution {
         }
         return count;
     }
-    public void dfs(int[][] grid, int i, int j) {
-    if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == 0) {
-        return;
-    }
-    grid[i][j] = 0;
 
-    for (int[] dir : direc) {
-        int newRow = i + dir[0];
-        int newCol = j + dir[1];
-        dfs(grid, newRow, newCol);
+    // public void dfs(int[][] grid, int i, int j) {
+    //     if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == 0) {
+    //         return;
+    //     }
+
+    //     for (int[] dir : direc) {
+    //         int newRow = i + dir[0];
+    //         int newCol = j + dir[1];
+    //     grid[i][j] = 0;
+    //         dfs(grid, newRow, newCol);
+    //     }
+    // }
+
+    public void dfs(int[][] grid, int i, int j) {
+          if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == 0) {
+            return;
+        }
+            grid[i][j] = 0;
+        for (int m = 0; m < 4; m++) {
+            dfs(grid, i + direc[m][0], j + direc[m][1]);
+        }
     }
-}
+
     // public void dfs(int[][] grid, int i, int j) {
     //     if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == 0) {
     //         return;
