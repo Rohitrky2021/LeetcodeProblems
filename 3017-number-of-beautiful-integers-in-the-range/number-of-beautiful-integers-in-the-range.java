@@ -1,60 +1,34 @@
-import java.util.ArrayList;
-import java.util.List;
 
+
+   
 class Solution {
-    int k;
-    int[][][][][][] dp = new int[11][11][2][25][11][2];
-
-    int find(int len, boolean tight, int sum, int odd, boolean isZero, int actualLength, List<Integer> digits) {
-        if (len == digits.size()) {
-            if ((actualLength - odd == odd) && (sum == 0) && !isZero) {
-                return 1;
-            }
-            return 0;
-        }
-        if (dp[len][actualLength][tight ? 1 : 0][sum][odd][isZero ? 1 : 0] != -1) {
-            return dp[len][actualLength][tight ? 1 : 0][sum][odd][isZero ? 1 : 0];
-        }
-
-        int limit = 9, res = 0;
-        if (tight) {
-            limit = digits.get(len);
-        }
-
-        for (int dig = 0; dig <= limit; dig++) {
-            res += find(len + 1, (tight && (dig == limit)), (10 * sum + dig) % k, odd + (dig % 2), (isZero && (dig == 0)), (isZero && (dig == 0)) ? 0 : actualLength + 1, digits);
-        }
-
-        return (dp[len][actualLength][tight ? 1 : 0][sum][odd][isZero ? 1 : 0] = res);
-    }
-
-    int go(int x) {
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 11; j++) {
-                for (int k = 0; k < 2; k++) {
-                    for (int l = 0; l < 25; l++) {
-                        for (int m = 0; m < 11; m++) {
-                            for (int n = 0; n < 2; n++) {
-                                dp[i][j][k][l][m][n] = -1;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    
+    public int numberOfBeautifulIntegers(int low, int high, int k) {
+        return count(0,4,4,k,low,high);
         
-        List<Integer> digits = new ArrayList<>();
-        int m = x;
-        while (m > 0) {
-            digits.add(m % 10);
-            m /= 10;
+    }
+    
+     public int count(int val, int odd, int even, int k,int low, int high){
+        
+        if(val>high)return 0;
+        int ans=0;
+        if(val%k==0 && val>=low && val<=high && odd==even)ans=1;
+        if(even==0 && odd ==0)return ans;
+        if(even>0){
+             ans+= count(val*10+2,odd, even-1,k,low,high) 
+                   + count(val*10+4,odd, even-1,k,low,high)
+                   + count(val*10+6,odd, even-1,k,low,high)
+                   + count(val*10+8,odd, even-1,k,low,high) ;
+            if(val>0)ans+= count(val*10+0,odd, even-1,k,low,high);
         }
-        Collections.reverse(digits);
-        return find(0, true, 0, 0, true, 0, digits);
-    }
+         if(odd>0){
+            ans+= count(val*10+1,odd-1, even,k,low,high) 
+                 +count(val*10+3,odd-1, even,k,low,high)
+                 +count(val*10+5,odd-1, even,k,low,high)
+                 +count(val*10+7,odd-1, even,k,low,high)
+                 +count(val*10+9,odd-1, even,k,low,high);
+         }
+         return ans;
+     }
 
-    int numberOfBeautifulIntegers(int low, int high, int K) {
-        k = K;
-        return go(high) - go(low - 1);
-    }
 }
