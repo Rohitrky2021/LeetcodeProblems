@@ -1,30 +1,25 @@
 class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> ans = new ArrayList<>();
 
-public List<List<String>> groupAnagrams(String[] strs) {
-    List<List<String>> ans = new ArrayList<>();
-    HashMap<String, List<String>> map = new HashMap<>();
+        // Map to store anagrams as lists of strings
+        HashMap<String, List<String>> anagramMap = new HashMap<>();
 
-    for (String s : strs) {
-        int[] charCount = new int[26]; // Count the occurrences of each character in the string
-        for (char c : s.toCharArray()) {
-            charCount[c - 'a']++; // Increment the count for the character
+        for (String s : strs) {
+            char[] charArray = s.toCharArray();
+            Arrays.sort(charArray); // Sort the characters to identify anagrams
+            String sortedStr = new String(charArray);
+
+            // Check if the sorted string is already in the map
+            if (!anagramMap.containsKey(sortedStr)) {
+                anagramMap.put(sortedStr, new ArrayList<>());
+            }
+            anagramMap.get(sortedStr).add(s); // Add the original string to the anagram group
         }
 
-        StringBuilder keyBuilder = new StringBuilder();
-        for (int count : charCount) {
-            keyBuilder.append('#').append(count); // Create a unique key for anagrams
-        }
-        String key = keyBuilder.toString();
+        // Add all anagram groups to the final result
+        ans.addAll(anagramMap.values());
 
-        if (!map.containsKey(key)) {
-            map.put(key, new ArrayList<>()); // Initialize a list for the anagram group
-        }
-        map.get(key).add(s); // Add the string to its corresponding anagram group
+        return ans;
     }
-
-    ans.addAll(map.values()); // Add all anagram groups to the final result
-
-    return ans;
-}
-
 }
