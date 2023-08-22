@@ -1,33 +1,52 @@
 class Solution {
-
-    public boolean isAnagram(String s, String s2) {
-        if (s.length() != s2.length()) {
-            return false;
+    public boolean isAnagram(String s, String t) {
+        int[] count = new int[26];
+        for (char c: s.toCharArray()) {
+            count[c - 'a']++;
         }
-        HashMap<Character, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < s.length(); i++) {
-            if (map.containsKey(s.charAt(i))) {
-                map.put(s.charAt(i), map.get(s.charAt(i)) + 1);
-            } else {
-                map.put(s.charAt(i), 1);
-            }
+        
+        for (char c: t.toCharArray()) {
+            count[c - 'a']--;
         }
-
-        for (int i = 0; i < s2.length(); i++) {
-            if (map.containsKey(s2.charAt(i))) {
-                map.put(s2.charAt(i), map.get(s2.charAt(i)) - 1);
-            if (map.get(s2.charAt(i)) == 0) {
-                map.remove(s2.charAt(i));
-            }
-            } else {
-                return false;
-            }
+        for (int i = 0; i < 26; i++) {
+            if (count[i] != 0) return false;
         }
-
-        return map.isEmpty();
+        return true;
     }
 }
+
+
+
+// class Solution {
+
+//     public boolean isAnagram(String s, String s2) {
+//         if (s.length() != s2.length()) {
+//             return false;
+//         }
+//         HashMap<Character, Integer> map = new HashMap<>();
+
+//         for (int i = 0; i < s.length(); i++) {
+//             if (map.containsKey(s.charAt(i))) {
+//                 map.put(s.charAt(i), map.get(s.charAt(i)) + 1);
+//             } else {
+//                 map.put(s.charAt(i), 1);
+//             }
+//         }
+
+//         for (int i = 0; i < s2.length(); i++) {
+//             if (map.containsKey(s2.charAt(i))) {
+//                 map.put(s2.charAt(i), map.get(s2.charAt(i)) - 1);
+//             if (map.get(s2.charAt(i)) == 0) {
+//                 map.remove(s2.charAt(i));
+//             }
+//             } else {
+//                 return false;
+//             }
+//         }
+
+//         return map.isEmpty();
+//     }
+// }
 // import java.util.HashMap;
 
 // class Solution {
