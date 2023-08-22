@@ -62,34 +62,74 @@
 //         return hash;
 //     }
 // }
+// class Solution {
+//     public List<List<String>> groupAnagrams(String[] strs) {
+//         List<List<String>> ans = new ArrayList<>();
+//         HashMap<String, List<String>> anagramMap = new HashMap<>();
+
+//         for (String s : strs) {
+//             String hashKey = getHashKey(s);
+//             if (!anagramMap.containsKey(hashKey)) {
+//                 anagramMap.put(hashKey, new ArrayList<>());
+//             }
+//             anagramMap.get(hashKey).add(s);
+//         }
+
+//         ans.addAll(anagramMap.values());
+
+//         return ans;
+//     }
+
+//     private String getHashKey(String s) {
+//         int[] charCount = new int[26];
+//         for (char c : s.toCharArray()) {
+//             charCount[c - 'a']++;
+//         }
+//         StringBuilder hashKey = new StringBuilder();
+//         for (int count : charCount) {
+//             hashKey.append('#').append(count);
+//         }
+//         return hashKey.toString();
+//     }
+// }
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> ans = new ArrayList<>();
+
+        // Map to store anagrams as lists of strings
         HashMap<String, List<String>> anagramMap = new HashMap<>();
 
         for (String s : strs) {
-            String hashKey = getHashKey(s);
-            if (!anagramMap.containsKey(hashKey)) {
-                anagramMap.put(hashKey, new ArrayList<>());
+            String hashValue = calculateHash(s);
+
+            // Check if the hash value is already in the map
+            if (!anagramMap.containsKey(hashValue)) {
+                anagramMap.put(hashValue, new ArrayList<>());
             }
-            anagramMap.get(hashKey).add(s);
+            anagramMap.get(hashValue).add(s); // Add the string to the hash value group
         }
 
+        // Add all hash value groups to the final result
         ans.addAll(anagramMap.values());
 
         return ans;
     }
 
-    private String getHashKey(String s) {
-        int[] charCount = new int[26];
+    private String calculateHash(String s) {
+        int[] count = new int[26]; // Count of each character
+
         for (char c : s.toCharArray()) {
-            charCount[c - 'a']++;
+            count[c - 'a']++; // Increment count for the character
         }
-        StringBuilder hashKey = new StringBuilder();
-        for (int count : charCount) {
-            hashKey.append('#').append(count);
+
+        // Create a string representation of the character count array
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 26; i++) {
+            sb.append('#');
+            sb.append(count[i]);
         }
-        return hashKey.toString();
+
+        return sb.toString();
     }
 }
 
