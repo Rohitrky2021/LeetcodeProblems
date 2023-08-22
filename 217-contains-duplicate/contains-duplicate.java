@@ -8,7 +8,7 @@ class Solution {
             if (seen.contains(num)) {
                 return true; // Found a duplicate
             }
-            seen.add(num); // Add the number to the HashSet
+            else{seen.add(num); }// Add the number to the HashSet
         }
         
         return false; // No duplicates found
