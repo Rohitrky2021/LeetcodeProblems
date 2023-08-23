@@ -17,10 +17,10 @@ class Solution {
             if (visited[i]) {
                 continue;
             }
-             if (visited[i]) {
-                continue;
-                // ---------------->when revise ones uncomment and run this !
-            }
+            //  if (visited[i]) {
+            //     continue;
+            //     // ---------------->when revise ones uncomment and run this !
+            // }
             visited[i] = true;
             current.add(nums[i]);
             backtrack(nums, visited, current, result);
