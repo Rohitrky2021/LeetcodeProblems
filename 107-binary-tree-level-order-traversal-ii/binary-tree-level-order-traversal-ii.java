@@ -44,12 +44,12 @@ class Solution {
                 }
             }
 
-            ans.add(currentlevel);
+            ans.add(0,currentlevel);// Because of this last Lines Code Get Commented -->Adding at ) index;
         }
-        for (int i = ans.size() - 1; i >= 0; i--) {
-            ans.add(ans.get(i));
-            ans.remove(i);
-        }
+        // for (int i = ans.size() - 1; i >= 0; i--) {// Revise BY Uncomment This Line while Revise 
+        //     ans.add(ans.get(i));
+        //     ans.remove(i);
+        // }
 
         return ans;
     }
