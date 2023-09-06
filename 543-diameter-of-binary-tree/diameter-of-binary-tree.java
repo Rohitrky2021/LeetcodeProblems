@@ -17,34 +17,7 @@
 class Solution {
     int diameter = 0;
 
-    // Map<TreeNode, Integer> memo = new HashMap<>();
-
-    // public int diameterOfBinaryTree(TreeNode root) {
-    //     height(root);
-    //     return diameter - 1;
-    // }
-
-    // public int height(TreeNode node) {
-    //     if (node == null) {
-    //         return 0;
-    //     }
-
-    //     if (memo.containsKey(node)) {
-    //         return memo.get(node);
-    //     }
-
-    //     int lh = height(node.left);
-    //     int rh = height(node.right);
-
-    //     int dia = lh + rh + 1;
-    //     diameter = Math.max(diameter, dia);
-
-    //     int maxHeight = Math.max(lh, rh) + 1;
-    //     memo.put(node, maxHeight);
-
-    //     return maxHeight;
-    // }
-
+    // // Array Method Used Unqie But not in SC but --> Can be used in DIfferent Variation of Questions // Ya Best in TC
     // public int diameterOfBinaryTree(TreeNode root) {
     //     if (root == null) {
     //         return 0;
@@ -72,6 +45,36 @@ class Solution {
     //     return new int[] { currentMaxPath, currentMaxDiameter };
     // }
 
+    // Kunal Best Method  +   Used DP in it
+
+    Map<TreeNode, Integer> memo = new HashMap<>();
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        height(root);
+        return diameter - 1;
+    }
+
+    public int height(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        if (memo.containsKey(node)) {
+            return memo.get(node);
+        }
+
+        int lh = height(node.left);
+        int rh = height(node.right);
+
+        int dia = lh + rh + 1;
+        diameter = Math.max(diameter, dia);
+
+        int maxHeight = Math.max(lh, rh) + 1;
+        memo.put(node, maxHeight);
+
+        return maxHeight;
+    }
+
     // public int diameterOfBinaryTree(TreeNode root) {
     //     Map<TreeNode, Integer> memo = new HashMap<>();
     //     return diameter(root, memo) - 1;
@@ -98,6 +101,8 @@ class Solution {
     //     return height;
     // }
 
+    // Kunal Best Method
+
     // public int diameterOfBinaryTree(TreeNode root) {
     //     height(root);
     //     return diameter - 1;
@@ -116,63 +121,63 @@ class Solution {
     //     return Math.max(lh, rh) + 1;
     // }
 
-    // // Bad N^2 Method
+    // // // Bad N^2 Method
+    // // public int diameterOfBinaryTree(TreeNode root) {
+    // //     if (root == null) {
+    // //         return 0;
+    // //     }
+    // //     int leftdiam = diameterOfBinaryTree(root.left);
+    // //     int lh = height(root.left);
+    // //     int rigthdiam = diameterOfBinaryTree(root.right);
+    // //     int rh = height(root.right);
+
+    // //     int selfdiam = lh + rh;
+
+    // //     return Math.max(leftdiam, Math.max(rigthdiam, selfdiam));
+    // // }
+
+    // // public int height(TreeNode root) {
+    // //     if (root == null) {
+    // //         return 0;
+    // //     }
+    // //     int lh = height(root.left);
+    // //     int rh = height(root.right);
+
+    // //     int maxh = Math.max(lh, rh) + 1;
+    // //     // System.out.println(maxh);
+    // //     return maxh;
+    // // }
+
+    // Map<TreeNode, Integer> memo = new HashMap<>();
+
     // public int diameterOfBinaryTree(TreeNode root) {
     //     if (root == null) {
     //         return 0;
     //     }
-    //     int leftdiam = diameterOfBinaryTree(root.left);
-    //     int lh = height(root.left);
-    //     int rigthdiam = diameterOfBinaryTree(root.right);
-    //     int rh = height(root.right);
 
-    //     int selfdiam = lh + rh;
+    //     int leftDiameter = diameterOfBinaryTree(root.left);
+    //     int rightDiameter = diameterOfBinaryTree(root.right);
 
-    //     return Math.max(leftdiam, Math.max(rigthdiam, selfdiam));
+    //     int selfDiameter = height(root.left) + height(root.right);
+
+    //     return Math.max(leftDiameter, Math.max(rightDiameter, selfDiameter));
     // }
 
-    // public int height(TreeNode root) {
-    //     if (root == null) {
+    // public int height(TreeNode node) {
+    //     if (node == null) {
     //         return 0;
     //     }
-    //     int lh = height(root.left);
-    //     int rh = height(root.right);
 
-    //     int maxh = Math.max(lh, rh) + 1;
-    //     // System.out.println(maxh);
-    //     return maxh;
+    //     if (memo.containsKey(node)) {
+    //         return memo.get(node);
+    //     }
+
+    //     int leftHeight = height(node.left);
+    //     int rightHeight = height(node.right);
+
+    //     int maxHeight = Math.max(leftHeight, rightHeight) + 1;
+    //     memo.put(node, maxHeight);
+
+    //     return maxHeight;
     // }
-
-    Map<TreeNode, Integer> memo = new HashMap<>();
-
-    public int diameterOfBinaryTree(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-
-        int leftDiameter = diameterOfBinaryTree(root.left);
-        int rightDiameter = diameterOfBinaryTree(root.right);
-
-        int selfDiameter = height(root.left) + height(root.right);
-
-        return Math.max(leftDiameter, Math.max(rightDiameter, selfDiameter));
-    }
-
-    public int height(TreeNode node) {
-        if (node == null) {
-            return 0;
-        }
-
-        if (memo.containsKey(node)) {
-            return memo.get(node);
-        }
-
-        int leftHeight = height(node.left);
-        int rightHeight = height(node.right);
-
-        int maxHeight = Math.max(leftHeight, rightHeight) + 1;
-        memo.put(node, maxHeight);
-
-        return maxHeight;
-    }
 }
