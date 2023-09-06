@@ -18,7 +18,9 @@ class Solution {
         while (i < k) {
             ans[i] = current;
 
-            int partNodeCount = partSize + (i < remainder ? 1 : 0);
+            int partNodeCount = partSize + (i < remainder ? 1 : 0);// Remainder is there Stariting ONes Ko  
+            // starting waalo ko Jaada hua tho de denge  
+            
 
             for (int j = 1; j < partNodeCount; j++) {
                 current = current.next;
