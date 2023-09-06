@@ -14,31 +14,50 @@
  * }
  */
 class Solution {
+    int diameter = 0;
 
     public int diameterOfBinaryTree(TreeNode root) {
-        if (root == null) {
-                return 0;
-            }
-            int leftdiam = diameterOfBinaryTree(root.left);
-            int lh = height(root.left);
-            int rigthdiam = diameterOfBinaryTree(root.right);
-            int rh = height(root.right);
-
-            int selfdiam = lh + rh;
-
-            return Math.max(leftdiam, Math.max(rigthdiam, selfdiam));
-
+        height(root);
+        return diameter-1;
     }
 
-    public  int height(TreeNode root) {
-        if (root == null) {
+    public int height(TreeNode node) {
+        if (node == null) {
             return 0;
         }
-        int lh = height(root.left);
-        int rh = height(root.right);
+        int lh = height(node.left);
+        int rh = height(node.right);
 
-        int maxh = Math.max(lh, rh) + 1;
-        // System.out.println(maxh);
-        return maxh;
+        int dia=lh+rh+1;
+        diameter=Math.max(diameter,dia);
+
+       return Math.max(lh,rh)+1;
     }
+
+    // // Bad N^2 Method
+    // public int diameterOfBinaryTree(TreeNode root) {
+    //     if (root == null) {
+    //         return 0;
+    //     }
+    //     int leftdiam = diameterOfBinaryTree(root.left);
+    //     int lh = height(root.left);
+    //     int rigthdiam = diameterOfBinaryTree(root.right);
+    //     int rh = height(root.right);
+
+    //     int selfdiam = lh + rh;
+
+    //     return Math.max(leftdiam, Math.max(rigthdiam, selfdiam));
+    // }
+
+    // public int height(TreeNode root) {
+    //     if (root == null) {
+    //         return 0;
+    //     }
+    //     int lh = height(root.left);
+    //     int rh = height(root.right);
+
+    //     int maxh = Math.max(lh, rh) + 1;
+    //     // System.out.println(maxh);
+    //     return maxh;
+    // }
 }
