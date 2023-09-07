@@ -62,8 +62,11 @@ class Solution {
             prev=curr;
             curr=curr.next;
         }
+
             start=prev;
             s2=curr;
+
+
         while (i>=left && i<=right) {
             i++;
             next = curr.next;
@@ -71,12 +74,16 @@ class Solution {
             prev = curr;
             curr = next;
         }
+
         // start.next=prev;
             if (start != null) {
             start.next = prev;
+
         } else {
+
             head = prev; // If reversing from the beginning i.e blue part apna head se he start ho jaaye tho, update head
         }
+        
         s2.next=curr;
         return head;
     }
