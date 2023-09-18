@@ -1,7 +1,15 @@
 class Solution {
 
     public int[] kWeakestRows(int[][] arr, int k) {
-        PriorityQueue<row> pq = new PriorityQueue<>();
+        PriorityQueue<row> pq = new PriorityQueue<>(
+            (r1, r2) -> {
+                if (r1.soldier == r2.soldier) {
+                    return r1.idx - r2.idx;
+                } else {
+                    return r1.soldier - r2.soldier;
+                }
+            }
+        );
         for (int i = 0; i < arr.length; i++) {
             int soldier = 0;
             int j = 0;
