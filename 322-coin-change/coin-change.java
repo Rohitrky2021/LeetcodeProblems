@@ -17,7 +17,7 @@
 
 // }
 
-public class Solution {
+// public class Solution {
 // public int coinChange(int[] coins, int amount) {
 //     return coinChangeRecursive(coins, amount);
 // }
@@ -39,23 +39,59 @@ public class Solution {
 // }
 
 
-public int coinChange(int[] coins, int amount) {
-    int[] dp = new int[amount + 1];
-    Arrays.fill(dp, amount + 1); // Initialize with a value greater than the maximum possible amount
+// public int coinChange(int[] coins, int amount) {
+//     int[] dp = new int[amount + 1];
+//     Arrays.fill(dp, amount + 1); // Initialize with a value greater than the maximum possible amount
     
-    dp[0] = 0; // Zero coins needed to make change for zero amount
+//     dp[0] = 0; // Zero coins needed to make change for zero amount
     
-    for (int coin : coins) {
-        for (int i = coin; i <= amount; i++) {
-            dp[i] = Math.min(dp[i], dp[i - coin] + 1);
-        }
+//     for (int coin : coins) {
+//         for (int i = coin; i <= amount; i++) {
+//             dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+//         }
+//     }
+    
+//     return dp[amount] > amount ? -1 : dp[amount];
+// }
+
+
+// }
+
+class Solution {
+
+    int[] cache;
+
+    public int coinChange(int[] coins, int amount) {
+        cache = new int[amount + 1];
+        Arrays.fill(cache, -1); // Initialize cache with -1
+
+        int res = solve(coins, amount);
+        return res == Integer.MAX_VALUE ? -1 : res;
     }
-    
-    return dp[amount] > amount ? -1 : dp[amount];
+
+    private int solve(int[] coins, int amount) {
+        if (amount == 0)
+            return 0;
+
+        if (cache[amount] != -1)
+            return cache[amount];
+
+        int minVal = Integer.MAX_VALUE;
+
+        for (int coin : coins) {
+            if (coin <= amount) {
+                int temp = solve(coins, amount - coin);
+                if (temp != Integer.MAX_VALUE && temp + 1 < minVal)
+                    minVal = temp + 1;
+            }
+        }
+
+        cache[amount] = minVal;
+        return minVal;
+    }
 }
 
 
-}
 
 // public class Solution {
 //     public int coinChange(int[] coins, int amount) {
