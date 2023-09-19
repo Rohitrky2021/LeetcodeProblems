@@ -18,27 +18,67 @@
 // }
 
 public class Solution {
-    public int coinChange(int[] coins, int amount) {
-        // if (coins == null || coins.length == 0)
-		// 	return -1;
+// public int coinChange(int[] coins, int amount) {
+//     return coinChangeRecursive(coins, amount);
+// }
 
-		if (amount <= 0)
-			return 0;
+// private int coinChangeRecursive(int[] coins, int amount) {
+//     if (amount < 0) return -1;
+//     if (amount == 0) return 0;
+    
+//     int minCoins = Integer.MAX_VALUE;
+    
+//     for (int i = 0; i < coins.length; i++) {
+//         int coinCount = coinChangeRecursive(coins, amount - coins[i]);
+//         if (coinCount >= 0 && coinCount < minCoins) {
+//             minCoins = coinCount + 1;
+//         }
+//     }
+    
+//     return (minCoins == Integer.MAX_VALUE) ? -1 : minCoins;
+// }
 
-		int dp[] = new int[amount + 1];
-		for (int i = 1; i < dp.length; i++) {
-			dp[i] = Integer.MAX_VALUE;
-		}
 
-		for (int am = 1; am < dp.length; am++) {
-			for (int i = 0; i < coins.length; i++) {
-				if (coins[i] <= am) {
-					int sub = dp[am - coins[i]];
-					if (sub != Integer.MAX_VALUE)
-						dp[am] = Math.min(sub + 1, dp[am]);
-				}
-			}
-		}
-		return dp[dp.length - 1] == Integer.MAX_VALUE ? -1 : dp[dp.length - 1];
+public int coinChange(int[] coins, int amount) {
+    int[] dp = new int[amount + 1];
+    Arrays.fill(dp, amount + 1); // Initialize with a value greater than the maximum possible amount
+    
+    dp[0] = 0; // Zero coins needed to make change for zero amount
+    
+    for (int coin : coins) {
+        for (int i = coin; i <= amount; i++) {
+            dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+        }
     }
+    
+    return dp[amount] > amount ? -1 : dp[amount];
 }
+
+
+}
+
+// public class Solution {
+//     public int coinChange(int[] coins, int amount) {
+//         // if (coins == null || coins.length == 0)   
+// 		// 	return -1;   
+
+// 		if (amount <= 0)
+// 			return 0;
+
+// 		int dp[] = new int[amount + 1];
+// 		for (int i = 1; i < dp.length; i++) {
+// 			dp[i] = Integer.MAX_VALUE;
+// 		}
+
+// 		for (int am = 1; am < dp.length; am++) {
+// 			for (int i = 0; i < coins.length; i++) {
+// 				if (coins[i] <= am) {
+// 					int sub = dp[am - coins[i]];
+// 					if (sub != Integer.MAX_VALUE)
+// 						dp[am] = Math.min(sub + 1, dp[am]);
+// 				}
+// 			}
+// 		}
+// 		return dp[dp.length - 1] == Integer.MAX_VALUE ? -1 : dp[dp.length - 1];
+//     }
+// }
