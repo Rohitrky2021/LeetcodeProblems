@@ -81,8 +81,10 @@ class Solution {
         for (int coin : coins) {
             if (coin <= amount) {
                 int temp = solve(coins, amount - coin);
-                if (temp != Integer.MAX_VALUE && temp + 1 < minVal)
-                    minVal = temp + 1;
+                // if (temp != Integer.MAX_VALUE && temp + 1 < minVal)
+								if (temp != Integer.MAX_VALUE )
+									 minVal=	Math.min( minVal,temp + 1);
+                    // minVal = temp + 1;
             }
         }
 
