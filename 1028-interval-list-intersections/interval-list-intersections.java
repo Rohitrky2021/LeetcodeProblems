@@ -6,8 +6,8 @@ class Solution {
         }
     
         // Sort the input arrays by the start of each interval
-        Arrays.sort(f1, (a, b) -> Integer.compare(a[0], b[0]));
-        Arrays.sort(s2, (a, b) -> Integer.compare(a[0], b[0]));
+        // Arrays.sort(f1, (a, b) -> Integer.compare(a[0], b[0]));
+        // Arrays.sort(s2, (a, b) -> Integer.compare(a[0], b[0]));
     
         List<int[]> merged = new ArrayList<>();
         int i = 0, j = 0;
