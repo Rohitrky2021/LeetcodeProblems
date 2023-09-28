@@ -17,7 +17,8 @@ class Solution {
                 tail++;
             }
 
-            if(hm.getOrDefault(arr[head], 0)==1)sum += arr[head];
+            // if(hm.getOrDefault(arr[head], 0)==1)
+            sum += arr[head];
             
             // ans = Math.max(ans, sum);
         }
