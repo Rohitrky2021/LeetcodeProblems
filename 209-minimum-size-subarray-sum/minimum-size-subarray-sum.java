@@ -7,14 +7,14 @@ class Solution {
             
             sum += arr[head] ;
 
-            while (sum > k) {
+            while (sum >= k) {
                 ans=Math.min(ans, head - tail + 1);
                 sum -= arr[tail];
 
                 tail++;
             }
 
-           if(sum>=k)ans = Math.min(ans, head - tail + 1);
+        //    if(sum>=k)ans = Math.min(ans, head - tail + 1);
         }
 
         // return head-tail+1;
