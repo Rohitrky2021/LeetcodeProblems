@@ -1,19 +1,41 @@
-class Solution {
-   public int minOperations(int[] nums, int x) {
-	int sum = 0;
-	for (int num: nums) sum += num;
+// class Solution {
+//    public int minOperations(int[] nums, int x) {
+// 	int sum = 0;
+// 	for (int num: nums) sum += num;
 
-	int maxLength = -1, currSum = 0;
-	for (int l=0, r=0; r<nums.length; r++) {
-		currSum += nums[r];
-		while (l <= r && currSum > sum - x) currSum -= nums[l++];
-		if (currSum == sum - x) maxLength = Math.max(maxLength, r-l+1);
-	}
+// 	int maxLength = -1, currSum = 0;
+// 	for (int l=0, r=0; r<nums.length; r++) {
+// 		currSum += nums[r];
+// 		while (l <= r && currSum > sum - x) currSum -= nums[l++];
+// 		if (currSum == sum - x) maxLength = Math.max(maxLength, r-l+1);
+// 	}
 
-	return maxLength == -1 ? -1 : nums.length - maxLength;
+// 	return maxLength == -1 ? -1 : nums.length - maxLength;
+// }
+// }
+public class Solution {
+    public int minOperations(int[] nums, int x) {
+        int target = -x, n = nums.length;
+        for (int num : nums) target += num;
+        
+        if (target == 0) return n;
+        
+        int maxLen = 0, curSum = 0, left = 0;
+        
+        for (int right = 0; right < n; ++right) {
+            curSum += nums[right];
+            while (curSum > target && left<n) {
+                curSum -= nums[left];
+                left++;
+            }
+            if (curSum == target) {
+                maxLen = Math.max(maxLen, right - left + 1);
+            }
+        }
+        
+        return maxLen != 0 ? n - maxLen : -1;
+    }
 }
-}
-
 
 // class Solution {
 
