@@ -1,35 +1,30 @@
 class Solution {
+
     public List<Integer> findAnagrams(String s, String p) {
+        char pi[] = p.toCharArray();
+        char si[] = s.toCharArray();
+        int hash[] = new int[26]; // for baap
+        int curr[] = new int[26]; // my winodw array
 
-        int arr_p[] = new int[26];
-        int curr[]  = new int[26];
-        int change_req = p.length();
-        List<Integer>ans = new LinkedList<>();
-        for(int i = 0; i<p.length(); i++) arr_p[p.charAt(i)-'a']++;
+        List<Integer> ans = new LinkedList<>();
 
-        for(int i = 0; i<s.length(); i++){
-            int c = s.charAt(i)-'a';
-            curr[c]++;
-            change_req--;
-            if(i>=p.length())
-            {
-                curr[s.charAt(i-p.length())-'a']--;
-                change_req--;
-            }
+        int tail = 0, anss = 0, sum = 0, head/*makeing it global */;
 
-            if(change_req<=0){
-                int res = compare(arr_p,curr);
-                if(res==0) {ans.add(i-p.length()+1);change_req=1;}
-                else change_req=res;
-            }
+        for (int i = 0; i < pi.length; i++) {
+            hash[pi[i] - 'a']++;
         }
-        return ans;        
-    }
-    private int compare(int[] arr_p, int[] curr){
-        int ans = 0;
-        for(int i=0; i<26; i++){ 
-           ans += Math.abs(arr_p[i]-curr[i]);
+
+        for (head = 0; head < si.length; head++) {
+            if (Arrays.equals(hash, curr)) ans.add(tail);
+ 
+            while (head - tail + 1 > p.length()) {
+                curr[si[tail] - 'a']--;
+                tail++;
+            }
+            curr[si[head] - 'a']++;
         }
+        if (Arrays.equals(hash, curr)) ans.add(tail);
+        // return head-tail+1;
         return ans;
     }
 }
