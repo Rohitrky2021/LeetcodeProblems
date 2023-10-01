@@ -1,18 +1,60 @@
-// class Solution {
+class Solution {
+ public int totalFruit(int[] fruits) {
+        int[] fruitCount = new int[fruits.length];
+        int tail = 0, ans = 0, distinctFruits = 0;
+
+        Deque<Integer> fruitQueue = new ArrayDeque<>();
+
+        for (int head = 0; head < fruits.length; head++) {
+            int currentFruit = fruits[head];
+
+            if (fruitCount[currentFruit] == 0) {
+                distinctFruits++;
+            }
+
+            fruitCount[currentFruit]++;
+            fruitQueue.offerLast(currentFruit);
+
+            // Check if the window needs adjustments to have at most two types of fruit
+            while (distinctFruits > 2) {
+                int leftFruit = fruitQueue.pollFirst();
+                fruitCount[leftFruit]--;
+
+                if (fruitCount[leftFruit] == 0) {
+                    distinctFruits--;
+                }
+                tail++;
+            }
+
+            ans = Math.max(ans, head - tail + 1);
+        }
+
+        return ans;
+    }
+}
 
 //     public int totalFruit(int[] fruits) {
-//         char si[] = s.toCharArray();
-//         int f[] = new int[fruits.length];
-//         int tail = 0, ans = 0, head, max = 0;
+//         int[] fruitCount = new int[fruits.length];
+//         int tail = 0, ans = 0, distinctFruits = 0;
 
-//         for (head = 0; head < si.length; head++) {
-//             f[si[head] - 'A']++;
+//         for (int head = 0; head < fruits.length; head++) {
+//             int currentFruit = fruits[head];
+            
+//             if (fruitCount[currentFruit] == 0) {
+//                 distinctFruits++;  // For map size as array m direct nhi aayega size
+//             }
+            
+//             fruitCount[currentFruit]++;
 
-//             max = Math.max(max, f[si[head] - 'A']); // Global max frew
+//             // Check if the window needs adjustments to have at most two types of fruit
+//             while (distinctFruits > 2 && tail < fruits.length) {
+//                 int leftFruit = fruits[tail];
+//                 fruitCount[leftFruit]--;
 
-//             // Check if the window needs adjustments to make it valid
-//             while ((head - tail + 1) - max > k) { // getting the count of jinka change krna hai as max waale we dont change
-//                 f[si[tail] - 'A']--; // Decrement the frequency count
+//                 // onnly below line for manageing size 
+//                 if (fruitCount[leftFruit] == 0) {
+//                distinctFruits--; // Size waapis zero hoga tho distinct elemt ka count faaltu m next loop m increase hoga for same element   
+//                }
 //                 tail++;
 //             }
 
@@ -50,36 +92,6 @@
 //     }
 // }
 
-class Solution {
 
-    public int totalFruit(int[] fruits) {
-        int[] fruitCount = new int[fruits.length];
-        int tail = 0, ans = 0, distinctFruits = 0;
-
-        for (int head = 0; head < fruits.length; head++) {
-            int currentFruit = fruits[head];
-            
-            if (fruitCount[currentFruit] == 0) {
-                distinctFruits++;
-            }
-            
-            fruitCount[currentFruit]++;
-
-            // Check if the window needs adjustments to have at most two types of fruit
-            while (distinctFruits > 2 && tail < fruits.length) {
-                int leftFruit = fruits[tail];
-                fruitCount[leftFruit]--;
-                if (fruitCount[leftFruit] == 0) {
-                    distinctFruits--;
-                }
-                tail++;
-            }
-
-            ans = Math.max(ans, head - tail + 1);
-        }
-
-        return ans;
-    }
-}
 
 
