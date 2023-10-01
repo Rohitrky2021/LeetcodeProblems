@@ -33,28 +33,53 @@
 // }
 
 
+// class Solution {
+//     public boolean isPalindrome(String xyx) {
+//         int n = xyx.length();
+//         xyx = xyx.toLowerCase();
+
+//         StringBuilder cleanString = new StringBuilder();
+        
+//         for (int i = 0; i < n; i++) {
+//             char c = xyx.charAt(i);
+//             if (Character.isLetterOrDigit(c)) {
+//                 cleanString.append(c);
+//             }
+//         }
+
+//         n = cleanString.length();
+
+//         for (int i = 0; i < n / 2; i++) {
+//             if (cleanString.charAt(i) != cleanString.charAt(n - 1 - i)) {
+//                 return false;
+//             }
+//         }
+        
+//         return true;
+//     }
+// }
+
 class Solution {
     public boolean isPalindrome(String xyx) {
         int n = xyx.length();
         xyx = xyx.toLowerCase();
-
-        StringBuilder cleanString = new StringBuilder();
+        
+        char[] cleanChars = new char[n];
+        int cleanLength = 0;
         
         for (int i = 0; i < n; i++) {
             char c = xyx.charAt(i);
             if (Character.isLetterOrDigit(c)) {
-                cleanString.append(c);
+                cleanChars[cleanLength++] = c;
             }
         }
 
-        n = cleanString.length();
-
-        for (int i = 0; i < n / 2; i++) {
-            if (cleanString.charAt(i) != cleanString.charAt(n - 1 - i)) {
+        for (int i = 0; i < cleanLength / 2; i++) {
+            if (cleanChars[i] != cleanChars[cleanLength - 1 - i]) {
                 return false;
             }
         }
-        
+
         return true;
     }
 }
