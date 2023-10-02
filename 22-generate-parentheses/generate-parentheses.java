@@ -11,37 +11,41 @@
 //             ans.add(s);
 //             return ans;
 //         }
+//         int i=0;
 
-//         if (open < n) helper(close, n, ans, open + 1, s + "(");
+//         if (open < n) helper(close, n, ans, open + 1, s + "("); 
 
 //         if (close < open) helper(close + 1, n, ans, open, s + ")"); // If condition is important here
 
 //         return ans;
 //     }
 // }
+ 
+
+// Now Using Tabulation DP 
+
 class Solution {
+
     public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
-        generateParenthesisDP(n, n, "", ans, new StringBuilder());
-        return ans;
-    }
-
-    public void generateParenthesisDP(int open, int close, String current, List<String> ans, StringBuilder temp) {
-        if (open == 0 && close == 0) {
-            ans.add(current);
-            return;
+        List<List<String>> dp = new ArrayList<>();
+        
+        for (int i = 0; i <= n; i++) {
+            dp.add(new ArrayList<String>());
         }
-
-        if (open > 0) {
-            temp.append('(');
-            generateParenthesisDP(open - 1, close, current + '(', ans, temp);
-            temp.deleteCharAt(temp.length() - 1);
+        
+        dp.get(0).add("");
+        
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                for (String str1 : dp.get(j)) {
+                    for (String str2 : dp.get(i - j - 1)) {
+                        dp.get(i).add("(" + str1 + ")" + str2);
+                    }
+                }
+            }
         }
-
-        if (close > open) {
-            temp.append(')');
-            generateParenthesisDP(open, close - 1, current + ')', ans, temp);
-            temp.deleteCharAt(temp.length() - 1);
-        }
+        
+        return dp.get(n);
     }
 }
