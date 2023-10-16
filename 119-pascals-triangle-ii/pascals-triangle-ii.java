@@ -1,4 +1,7 @@
 class Solution {
+
+    // Dp Tabulation Filing Jessa h 
+    
     public List<Integer> getRow(int r) {
         List<Integer> anss = new ArrayList<>();
         if(r ==0){
