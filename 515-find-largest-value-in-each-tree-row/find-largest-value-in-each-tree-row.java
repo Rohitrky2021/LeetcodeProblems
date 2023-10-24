@@ -24,12 +24,15 @@ class Solution {
         q.offer(root);
         int level = 1;
         while (!q.isEmpty()) {
+            int max=Integer.MIN_VALUE;
             int levelSize = q.size();
             List<Integer> currentlevel = new ArrayList<>();
             for (int i = 0; i < levelSize; i++) {
                 TreeNode curr = q.poll();
                 currentlevel.add(curr.val);
+                max=Math.max(max,curr.val);
                 if (curr.left != null) {
+
                     q.offer(curr.left); // Adding the left part of Node
                 }
                 if (curr.right != null) { // Adding the Right part of Node
@@ -37,8 +40,8 @@ class Solution {
                 }
             }
 
-            // Collections.reverse(currentlevel);
-            ans.add(currentlevel.stream().max(Comparator.comparingInt(Integer::intValue)).orElse(0));
+         
+            ans.add(max);
 
             //  ans.add(currentlevel);
             level++;
