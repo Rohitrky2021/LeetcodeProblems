@@ -37,7 +37,7 @@ class Solution {
                 }
             }
 
-            Collections.reverse(currentlevel);
+            // Collections.reverse(currentlevel);
             ans.add(currentlevel.stream().max(Comparator.comparingInt(Integer::intValue)).orElse(0));
 
             //  ans.add(currentlevel);
