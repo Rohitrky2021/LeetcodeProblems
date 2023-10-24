@@ -22,7 +22,7 @@ class Solution {
             return ans;
         }
         q.offer(root);
-        int level = 1;
+     
         while (!q.isEmpty()) {
             int max=Integer.MIN_VALUE;
             int levelSize = q.size();
@@ -39,12 +39,9 @@ class Solution {
                     q.offer(curr.right);
                 }
             }
-
-         
+ 
             ans.add(max);
-
-      
-            level++;
+ 
         }
         return ans;
     }
