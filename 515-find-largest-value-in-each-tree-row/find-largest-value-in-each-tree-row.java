@@ -26,10 +26,10 @@ class Solution {
         while (!q.isEmpty()) {
             int max=Integer.MIN_VALUE;
             int levelSize = q.size();
-            List<Integer> currentlevel = new ArrayList<>();
+ 
             for (int i = 0; i < levelSize; i++) {
                 TreeNode curr = q.poll();
-                currentlevel.add(curr.val);
+  
                 max=Math.max(max,curr.val);
                 if (curr.left != null) {
 
@@ -43,7 +43,7 @@ class Solution {
          
             ans.add(max);
 
-            //  ans.add(currentlevel);
+      
             level++;
         }
         return ans;
