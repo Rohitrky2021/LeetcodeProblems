@@ -19,11 +19,7 @@ class Solution {
            msum= Math.max(msum,sum);
 
         }
-
-        System.out.println(msum);
-        String formattedFraction = String.format("%.5f", msum/k);
-
-        return  Double.parseDouble(formattedFraction);
+        return (double) msum/k;
 
         
     }
