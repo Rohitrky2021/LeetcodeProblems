@@ -28,7 +28,7 @@
 class Solution {
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
-        int[] a = new int[n];
+     
         int[] l = new int[n];
         int[] r = new int[n];
  
@@ -41,12 +41,12 @@ class Solution {
             r[i] = r[i + 1] * nums[i];
         }
 
-        a[0] = r[1];
-        a[n - 1] = l[n - 2];
+        nums[0] = r[1];
+        nums[n - 1] = l[n - 2];
         for (int i = 1; i < n - 1; i++) {
-            a[i] = l[i - 1] * r[i + 1];
+           nums[i] = l[i - 1] * r[i + 1];
         }
 
-        return a;
+        return nums;
     }
 }
