@@ -22,6 +22,30 @@
 // }
  
 class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList<>();
+        generateParenthesisHelper(n, n, "", ans);
+        return ans;
+    }
+
+    public void generateParenthesisHelper(int open, int close, String current, List<String> ans) {
+        if (open == 0 && close == 0) {
+            ans.add(current);
+            return;
+        }
+
+        if (open > 0) {
+            generateParenthesisHelper(open - 1, close, current + "(", ans);
+        }
+
+        if (close > open) {
+            generateParenthesisHelper(open, close - 1, current + ")", ans);
+        }
+    }
+}
+
+
+class Solutiond {
   public List<String> generateParenthesis(int n) {
     List<String> ans = new ArrayList<>();
     dfs(n, n, new StringBuilder(), ans);
