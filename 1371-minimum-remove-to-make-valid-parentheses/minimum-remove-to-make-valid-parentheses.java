@@ -1,4 +1,41 @@
 public class Solution {
+
+    public String minRemoveToMakeValid(String s) {
+        Stack<Integer> stack = new Stack<>();
+        char[] chars = s.toCharArray();
+
+        // First iteration: Remove unnecessary closing parentheses
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == '(') {
+                stack.push(i);
+            } else if (chars[i] == ')') {
+                if (!stack.isEmpty()) {
+                    stack.pop();
+                } else {
+                    chars[i] = ' '; // Mark unnecessary closing parentheses for removal
+                }
+            }
+        }
+
+        // Mark remaining unnecessary opening parentheses for removal
+        while (!stack.isEmpty()) {
+            chars[stack.pop()] = ' ';
+        }
+
+        // Construct the final result string
+        StringBuilder result = new StringBuilder();
+        for (char ch : chars) {
+            if (ch != ' ') {
+                result.append(ch);
+            }
+        }
+
+        return result.toString();
+    }
+}
+
+ class Solution2 {
+
     public String minRemoveToMakeValid(String s) {
         StringBuilder result = new StringBuilder();
 
@@ -41,3 +78,4 @@ public class Solution {
         return finalResult.toString();
     }
 }
+
