@@ -1,36 +1,40 @@
-class Solution {
+import java.util.HashMap;
+import java.util.Map;
 
+class Solution {
     public int maxProfit(int[] prices) {
-         Map<String, Integer> cache = new HashMap<>();
-        return dfs(0, prices, cache);
+        Map<String, Integer> cache = new HashMap<>();
+        return dfs(0, true, prices, cache);
     }
 
-    private int dfs(int currIdx, int[] prices, Map<String, Integer> cache) {
-        if (currIdx >= prices.length - 1) {
+    private int dfs(int currIdx, boolean canBuy,int[] prices, Map<String, Integer> cache) {
+        if (currIdx == prices.length) {
             return 0;
         }
 
-        String key = String.valueOf(currIdx);
+        StringBuilder keyBuilder = new StringBuilder();
+        keyBuilder.append(currIdx).append("-").append(canBuy);
+        String key = keyBuilder.toString();
+
         if (cache.containsKey(key)) {
             return cache.get(key);
         }
 
-        // buy on current day and sell on the next day
-        int buySell = 0;
-        for (int i = currIdx + 1; i < prices.length; i++) {
-            if (prices[i] > prices[currIdx]) {
-                int profit = prices[i] - prices[currIdx] + dfs(i + 1, prices, cache);
-                buySell = Math.max(buySell, profit);
-            }
+        // do nothing
+        int nothing = dfs(currIdx + 1, canBuy,prices, cache);
+
+        // buy
+        int action;
+        if (canBuy) {
+            action = dfs(currIdx + 1, false, prices, cache) - prices[currIdx];
+        }
+        // sell
+        else {
+            action = dfs(currIdx + 1, true,prices, cache) + prices[currIdx];
         }
 
-        // skip current day
-        int skip = dfs(currIdx + 1, prices, cache);
-
-        int maxProfit = Math.max(buySell, skip);
-        cache.put(key, maxProfit);
-        return maxProfit;
+        int best = Math.max(nothing, action);
+        cache.put(key, best);
+        return best;
     }
-
-
 }
