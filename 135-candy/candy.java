@@ -1,4 +1,4 @@
-class Solution1 {
+class Solution1 {  // Using Single array spaced saved 
  public int candy(int[] ratings) {
         int sum=0;
         int[] a=new int[ratings.length];
@@ -33,7 +33,7 @@ class Solution1 {
 
 
 
-class Solution2 {
+class Solution2 { // Using 2 array L and R  spaced  
   public int candy(int[] ratings) {
     final int n = ratings.length;
 
@@ -89,8 +89,8 @@ class Solution3 {  // This is Not passing all but can see this reduced logic
     }
 }
 
-
-class Solution {
+ 
+class Solution4 {  // Uisng Single Pass without any space of Array 
     public int candy(int[] ratings) {
         final int n = ratings.length;
         if (n == 0) {
@@ -129,3 +129,38 @@ class Solution {
         return n * (n + 1) / 2;
     }
 }
+
+
+class Solution {
+    public int candy(int[] ratings) {
+        final int n = ratings.length;
+        if (n == 0) {
+            return 0;
+        }
+
+        int[] candies = new int[n];
+        Arrays.fill(candies, 1);
+
+        // Forward pass
+        for (int i = 1; i < n; ++i) {
+            if (ratings[i] > ratings[i - 1]) {
+                candies[i] = candies[i - 1] + 1;
+            }
+        }
+
+        // Backward pass
+        for (int i = n - 2; i >= 0; --i) {
+            if (ratings[i] > ratings[i + 1]) {
+                candies[i] = Math.max(candies[i], candies[i + 1] + 1);
+            }
+        }
+
+        int totalCandies = 0;
+        for (int candy : candies) {
+            totalCandies += candy;
+        }
+
+        return totalCandies;
+    }
+}
+
