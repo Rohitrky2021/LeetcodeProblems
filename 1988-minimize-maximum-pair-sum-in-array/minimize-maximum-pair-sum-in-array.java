@@ -1,4 +1,4 @@
-class Solution1{
+class Solution{
     public int minPairSum(int[] nums) {
         int n=nums.length;
         Arrays.sort(nums);
@@ -27,7 +27,7 @@ class Solution11{
 
 
 
-class Solution {
+class Solution5 {
     public int minPairSum(int[] nums) {
         int max = 0;
         for (int n : nums) if (n > max) max = n;
