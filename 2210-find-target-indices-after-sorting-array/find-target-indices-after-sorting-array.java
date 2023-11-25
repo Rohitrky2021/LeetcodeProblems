@@ -4,7 +4,7 @@ import java.util.List;
 public class Solution {
     public List<Integer> targetIndices(int[] nums, int target) {
         ArrayList<Integer> ans = new ArrayList<>();
-        int[] fre = new int[1000];
+        int[] fre = new int[101];
         int occu = 0;
 
         // Count occurrences of each element in nums
