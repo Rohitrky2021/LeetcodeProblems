@@ -5,7 +5,7 @@ class Solution {
 
     while (lp <= rp) {
         if (array[lp] + array[rp] == target) {
-            System.out.println("["+(lp+1)+ "," +(rp+1)+"]");
+            // System.out.println("["+(lp+1)+ "," +(rp+1)+"]");
             return new int[]{lp+1,rp+1};
         }
 
