@@ -1,4 +1,4 @@
-class Solution {
+class Solution2 {
 
     public int maxWidthOfVerticalArea(int[][] points) {
         int max = (int) -1e9;
@@ -19,4 +19,21 @@ class Solution {
     }
 }
 
+ 
 
+class Solution {
+
+    public int maxWidthOfVerticalArea(int[][] points) {
+        Arrays.sort(points, Comparator.comparingInt(o -> o[0]));
+
+        int max = Integer.MIN_VALUE;
+        int prevX = points[0][0];
+
+        for (int[] point : points) {
+            max = Math.max(max, point[0] - prevX);
+            prevX = point[0];
+        }
+
+        return max;
+    }
+}
