@@ -1,4 +1,4 @@
-class Solution2 {
+class Solution1 {
 
     public int maxWidthOfVerticalArea(int[][] points) {
         int max = (int) -1e9;
@@ -21,7 +21,7 @@ class Solution2 {
 
  
 
-class Solution {
+class Solution2 {
 
     public int maxWidthOfVerticalArea(int[][] points) {
         // Arrays.sort(points, Comparator.comparingInt(o -> o[0]));
@@ -49,5 +49,29 @@ class Solution3 {
         }
         
         return ans;
+    }
+}
+
+class Solution {
+    public int maxWidthOfVerticalArea(int[][] points) {
+
+        SortedSet<Integer> xPoints = new TreeSet<Integer>();
+        for(int i=0;i<points.length;i++){
+            xPoints.add(points[i][0]);
+        }
+        int max = 0;
+        boolean isFirst = true;
+        int last = 0;
+        Iterator<Integer> iterator = xPoints.iterator(); 
+        if (iterator.hasNext()){   
+            last =  iterator.next();
+        }
+        while (iterator.hasNext()){    
+            Integer point = iterator.next();       
+            max = Math.max(point-last,max);
+            last = point;
+            
+        }
+        return max;
     }
 }
