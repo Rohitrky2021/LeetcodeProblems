@@ -28,14 +28,14 @@
 //     }
 // }
 
-
+// Moore's Voting Algorithm
 public class Solution {
     public int majorityElement(int[] num) {
 
-        int major=num[0], count = 1;
+        int major=num[0], count = 1; // Bucket m ek Bunda or Uska , Count 
         for(int i=1; i<num.length;i++){
             if(count==0){
-                count++;
+                count=1;
                 major=num[i];
             }else if(major==num[i]){
                 count++;
