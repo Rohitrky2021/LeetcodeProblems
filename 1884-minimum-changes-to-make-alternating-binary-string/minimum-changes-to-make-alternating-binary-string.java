@@ -4,20 +4,20 @@ class Solution {
         int zer=0,one=0,zer1=0,one1=0;
         for (int i = 0; i < a.length; i++) {
             if (a[i]!='0'  && i % 2 == 0) {
-            one++;
+            zer++;
             } else if(a[i]=='0'  && i % 2 != 0) {
                zer++;
             }
         }
-        zer=zer+one;
+ 
         for (int i = 0; i < a.length; i++) {
             if (a[i]!='1'  && i % 2 == 0) {
             zer1++;
             } else if(a[i]=='1'  && i % 2 != 0){
-              one1++;
+              zer1++;
             }
         }
-        zer1+=one1;
+       
         return Math.min(zer, zer1);
     }
 }
