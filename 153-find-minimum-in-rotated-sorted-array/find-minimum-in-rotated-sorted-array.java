@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
     public int findMin(int[] nums) {
         // If the list has just one element then return that element.
         if (nums.length == 1) {
@@ -49,4 +49,44 @@ class Solution {
         }
         return Integer.MAX_VALUE;
     }
+}
+
+
+public class Solution {
+
+    public int findMin(int[] nums) {
+        return findMinRecursive(nums, 0, nums.length - 1);
+    }
+
+    private int findMinRecursive(int[] nums, int left, int right) {
+        // Base cases
+        if (left == right) {
+            return nums[left];
+        }
+
+        if (nums[right] > nums[0]) {
+            return nums[0];
+        }
+
+        // Recursive case
+        int mid = left + (right - left) / 2;
+
+        // Check if the minimum is in the left or right subarray
+        if (nums[mid] > nums[right]) {
+            return findMinRecursive(nums, mid + 1, right);
+        } else {
+            return findMinRecursive(nums, left, mid);
+        }
+    }
+
+    // public static void main(String[] args) {
+    //     FindMinimumInRotatedSortedArray solution = new FindMinimumInRotatedSortedArray();
+
+    //     // Example usage:
+    //     int[] nums1 = {4, 5, 6, 7, 0, 1, 2};
+    //     int[] nums2 = {3, 4, 5, 1, 2};
+
+    //     System.out.println(solution.findMin(nums1)); // Output: 0
+    //     System.out.println(solution.findMin(nums2)); // Output: 1
+    // }
 }
