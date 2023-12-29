@@ -1,4 +1,25 @@
-class Solution {
+public class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int n = s1.length();
+        int[] freq = new int[26];
+        int m = s2.length();
+        for (int i = 0; i < n; i++) {
+            freq[s1.charAt(i) - 'a']++;
+        }
+        int[] freq2 = new int[26];
+        for (int i = 0; i < m; i++) {
+            freq2[s2.charAt(i) - 'a']++;
+            if (i >= n) {
+                freq2[s2.charAt(i - n) - 'a']--;
+            }
+            if (Arrays.equals(freq, freq2))
+                return true;
+        }
+        return false;
+    }
+}
+
+class Solution1 {
     public boolean checkInclusion(String s1, String s2) {
         int k=s1.length();
       // Step 1: Initialize the frequency arrays for s1 and the current window in s2
