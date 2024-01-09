@@ -79,20 +79,7 @@ class Solution {
 
         return r1.equals(r2);
     }
-
-    private boolean valuesEqual(ArrayList<Integer> list1, ArrayList<Integer> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-
-        for (int i = 0; i < list1.size(); i++) {
-            if (!list1.get(i).equals(list2.get(i))) {
-                return false;
-            }
-        }
-
-        return true;
-    }
+ 
 
     public void leaf2(TreeNode ro1) {
         if (ro1 != null) {
