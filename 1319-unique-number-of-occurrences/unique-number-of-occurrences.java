@@ -1,17 +1,17 @@
-class Solution1 {
+class Solution {
     public boolean uniqueOccurrences(int[] arr) {
-        int f[] = new int[2020];
+        int f[] = new int[2040];
 
-        Arrays.fill(f, Integer.MAX_VALUE);
+        // Arrays.fill(f, Integer.MAX_VALUE);
 
         for (int i = 0; i < arr.length; i++) {
-            f[arr[i] + 1000]++;
+            f[arr[i] + 1005]++;
         }
 
         Arrays.sort(f);
 
         for (int i = 1; i < f.length; i++) {
-            if(f[i]!=Integer.MAX_VALUE && f[i]==f[i-1])return false;
+            if(f[i] != 0 && f[i]==f[i-1])return false;
         }
         return true;
 
@@ -21,7 +21,7 @@ class Solution1 {
 // import java.util.HashSet;
 // import java.util.Set;
 
-class Solution {
+class Solution1 {
     private static final int OFFSET = 1000;
 
     public boolean uniqueOccurrences(int[] arr) {
