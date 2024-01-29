@@ -1,10 +1,10 @@
 class MyQueue {
 
-    Stack<Integer> s1;
+    Stack<Integer> s1= new Stack<>();
     Stack<Integer> s2;
 
     public MyQueue() {
-        s1 = new Stack<>();
+        // s1 = new Stack<>();
         s2 = new Stack<>();
     }
 
