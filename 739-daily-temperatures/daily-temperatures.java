@@ -1,9 +1,10 @@
 class Solution {
     public int[] dailyTemperatures(int[] arr) {
         Stack<Integer> ss = new Stack<>();
+        int n=arr.length;
         // int arr[] = { 6, 8, 0, 1, 3 };
         ArrayList<Integer> ans = new ArrayList<>();
-        for (int i = arr.length - 1; i >= 0; i--) {
+        for (int i = n - 1; i >= 0; i--) {
             while (!ss.isEmpty() && arr[ss.peek()] <= arr[i]) {
                 ss.pop();
             }
@@ -16,10 +17,10 @@ class Solution {
             ss.push(i);// index se check krenge value
         }
 
-        int anss[] = new int[arr.length];
-        for (int i =0; i<ans.size(); i++) {
+        int anss[] = new int[n];
+        for (int i =0; i<n; i++) {
             // System.out.print(ans.get(i) + " ");
-            anss[ans.size()-i-1]=ans.get(i);
+            anss[n-i-1]=ans.get(i);
         }
 
 
