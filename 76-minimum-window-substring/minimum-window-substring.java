@@ -1,42 +1,39 @@
 class Solution {
     public String minWindow(String s1, String s2) {
-     // Initialize an empty string to store the result
-        String result = "";
+      String result = "";
         
-        // Create a HashMap to store the frequency of characters in string s2
-        HashMap<Character, Integer> targetMap = new HashMap<>();
+        // Character array to store frequency counts
+        int[] targetMap = new int[256]; // Assuming extended ASCII
+        
+        // Fill the target map with frequencies of characters in s2
         for (char ch : s2.toCharArray()) {
-            targetMap.put(ch, targetMap.getOrDefault(ch, 0) + 1);
+            targetMap[ch]++;
         }
         
-        // Initialize pointers for the sliding window
         int left = 0;
         int right = 0;
         int matchCount = 0;
         int requiredMatches = s2.length();
-        HashMap<Character, Integer> windowMap = new HashMap<>();
+        int[] windowMap = new int[256];
         
         while (right < s1.length()) {
             char currentChar = s1.charAt(right);
-            windowMap.put(currentChar, windowMap.getOrDefault(currentChar, 0) + 1);
+            windowMap[currentChar]++;
             
-            if (windowMap.get(currentChar) <= targetMap.getOrDefault(currentChar, 0)) {
+            if (windowMap[currentChar] <= targetMap[currentChar]) {
                 matchCount++;
             }
             
-            // Try to minimize the window by moving the left pointer
             while (matchCount == requiredMatches) {
-                String currentWindow = s1.substring(left, right + 1);
-                
                 // Update the result if it's empty or the current window is smaller
-                if (result.isEmpty() || currentWindow.length() < result.length()) {
-                    result = currentWindow;
+                if (result.isEmpty() || (right - left + 1) < result.length()) {
+                    result = s1.substring(left, right + 1);
                 }
                 
                 char leftChar = s1.charAt(left);
-                windowMap.put(leftChar, windowMap.get(leftChar) - 1);
+                windowMap[leftChar]--;
                 
-                if (windowMap.get(leftChar) < targetMap.getOrDefault(leftChar, 0)) {
+                if (windowMap[leftChar] < targetMap[leftChar]) {
                     matchCount--;
                 }
                 
@@ -49,3 +46,7 @@ class Solution {
         return result;
     }
 }
+
+
+
+// M2 
