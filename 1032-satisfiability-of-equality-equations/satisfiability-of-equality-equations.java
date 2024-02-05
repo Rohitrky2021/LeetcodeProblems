@@ -3,11 +3,14 @@ class Solution {
         UnionFind uf = new UnionFind(26);
          // Assuming only lowercase English letters are used in equations
         for (String s : eqn) {
-            // char check[] = s.toCharArray();
+               char check[] = s.toCharArray();
+             if (check[1] == '=') {
+                 
 
-              
-              if (s.charAt(1)== '=') 
-                uf.union_set(s.charAt(0) - 'a', s.charAt(3)- 'a');
+                int x1 = check[0] - 'a';
+                int x2 = check[3] - 'a';
+                uf.union_set(x1, x2);
+             }
 
         }
 
