@@ -9,6 +9,7 @@ class Solution {
         UnionFind dsu = new UnionFind(n);
 
         for(int []x:cns){
+            if(dsu.find(x[0])!=dsu.find(x[1]))
             dsu.union(x[0],x[1]);
         }
 
@@ -51,3 +52,5 @@ class Solution {
         }
     }
 }
+
+
