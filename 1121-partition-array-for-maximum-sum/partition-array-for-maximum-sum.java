@@ -1,6 +1,6 @@
  
 
-class Solution {
+class Solution1 {
     private int maxSum(int[] arr, int k, int[] dp, int start) {
         int N = arr.length;
 
@@ -35,7 +35,7 @@ class Solution {
 
 
 // M2 -- USing Botttom up 
-class Solution2 {
+class Solution {
     public int maxSumAfterPartitioning(int[] arr, int k) {
         int n = arr.length;
         int[] dp = new int[n + 1];
