@@ -76,7 +76,7 @@ class Solution {
         while (s <= e) {
             mid = s + (e - s) / 2;
             if (check(weights, mid, days)) {
-                ans = mid;
+          
                 e = mid - 1;
             } else {
                 s = mid + 1;
