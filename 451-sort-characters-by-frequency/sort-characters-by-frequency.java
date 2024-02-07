@@ -6,7 +6,7 @@ class Solution {  // NOT WORKING SOLUITON BUT NYC TRY
             charFreq[c][1]++;    // Increment the frequency
         }
 
-        Arrays.sort(charFreq, Comparator.comparingInt(a -> -a[1])); // Sort by frequency in descending order
+        Arrays.sort(charFreq, (a, b) -> b[1] - a[1]); // Sort by frequency in descending order
 
         StringBuilder ans = new StringBuilder();
         for (int i = 0; i < 256 && charFreq[i][1] > 0; i++) {
