@@ -1,25 +1,50 @@
-class Solution1 {  // NOT WORKING SOLUITON BUT NYC TRY 
+class Solution {  // NOT WORKING SOLUITON BUT NYC TRY 
     public String frequencySort(String s) {
-        int[] count = new int[100];
-        String ans="";
+      int[][] charFreq = new int[256][2]; // Extend to cover ASCII range
         for (char c : s.toCharArray()) {
-            count[c - 'A']++;
+            charFreq[c][0] = c; // Store the character
+            charFreq[c][1]++;    // Increment the frequency
         }
 
- 
-        for(int i=0;i<count.length;i++){
-            while(count[i]!=0){
-             ans+=(char) (i+ 'A');
-             count[i]--;
+        Arrays.sort(charFreq, Comparator.comparingInt(a -> -a[1])); // Sort by frequency in descending order
+
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < 256 && charFreq[i][1] > 0; i++) {
+            char c = (char) charFreq[i][0];
+            int freq = charFreq[i][1];
+            for (int j = 0; j < freq; j++) {
+                ans.append(c); // Append the character 'freq' times
             }
         }
 
-    return ans;
+        return ans.toString();
+    }
+}
+
+
+
+class Solution2 {
+    public String frequencySort(String s) {
+       char[] str=s.toCharArray();
+        int[] freq=new int[128];
+        // for(char ch:s) freq[ch]++;
+        for(int i=0;i<str.length;i++) freq[str[i]]++;
+        for(int i=0;i<str.length;){
+            char cmax=',';
+            for(int j=0;j<128;j++){
+                if(freq[j]>freq[cmax]) cmax=(char)j;
+            }
+            while(freq[cmax]!=0){
+                str[i++]=cmax;
+                freq[cmax]--;
+            }
+        }
+        return new String(str);
     }
 }
  
 
-class Solution {
+class Solution3 {
     public String frequencySort(String s) {
         // Map to store character frequencies
         Map<Character, Integer> frequencyMap = new HashMap<>();
