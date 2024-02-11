@@ -1,7 +1,7 @@
 class Solution {
     static int[][] tmp = new int[6000][6000];
     public int change(int amount, int[] coins) {
-                for (int[] row : tmp) {
+    for (int[] row : tmp) {
             Arrays.fill(row, -1);
         }
         System.gc();
@@ -9,7 +9,7 @@ class Solution {
     }
 
     public static int subsetCount(int[] arr, int sum, int n) {
-        if (sum == 0)
+         if (sum == 0)
             return 1;
         if (n == 0)
             return 0;
@@ -21,7 +21,7 @@ class Solution {
             else {
                 return tmp[n][sum] = subsetCount(arr, sum, n - 1) + subsetCount(arr, sum - arr[n - 1], n);
             }
-        }
+ 	}
     }
 
-}
+	}
