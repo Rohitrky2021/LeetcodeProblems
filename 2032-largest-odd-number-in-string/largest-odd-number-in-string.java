@@ -5,12 +5,12 @@ class Solution {
         int i;
         for (i = n - 1; i >= 0; i--) {
             if (arr[i] % 2 != 0)
-                break;
+               return num.substring(0, i + 1);
         }
 
-        if (i < 0 || arr[i] % 2 == 0)
+        
             return "";
 
-        return num.substring(0, i + 1);
+        
     }
 }
