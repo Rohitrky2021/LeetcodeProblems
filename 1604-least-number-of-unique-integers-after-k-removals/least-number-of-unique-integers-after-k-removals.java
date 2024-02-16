@@ -1,34 +1,34 @@
-import java.util.*;
-
-class Solution1{
+class Solution {
     public int findLeastNumOfUniqueInts(int[] arr, int k) {
-        int[][] cf = new int[100001][2]; 
-        
-        
-        for (int c : arr) {
-            cf[c][0] = c;  
-            cf[c][1]++;    
-             
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            count.put(arr[i], count.getOrDefault(arr[i], 0) + 1);
+        }
+        int unique = count.size();
+
+        int[] countArray = new int[100000];
+        for(Integer key : count.keySet()) {
+            int keyCount = count.get(key);
+            countArray[keyCount]++;
         }
 
-        int count = 0;
-      
-         for (int i = 0; i <k; i++) {  
-             if(cf[i][1]!=0){
-             count+=cf[i][1];
-             }else{
-                 k++;
-             }
- 
-         }
-
-        return arr.length-count;  
+        for (int i = 1; i < 100000; i++) {
+            if (countArray[i]!= 0) {
+                int remove = k / i;
+                if (remove == 0) {
+                    break;
+                } else {
+                    remove = Math.min(remove, countArray[i]);
+                    unique -= remove;
+                    k -= remove * i;
+                }
+            }
+        }
+        return unique;
     }
 }
 
- 
-
-class Solution {
+class Solution1 {
     public int findLeastNumOfUniqueInts(int[] arr, int k) {
         // Step 1: Store the frequency of each element in the array
         Map<Integer, Integer> frequencyMap = new HashMap<>();
