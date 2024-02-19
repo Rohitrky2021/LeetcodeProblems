@@ -1,4 +1,4 @@
-class Solution1 {
+class Solution {
     public int longestConsecutive(int[] nums) {
         if(nums.length == 0) {
             return 0;
@@ -22,7 +22,7 @@ class Solution1 {
         return res;
     }
 }
-class Solution {
+class Solution1 {
     public int longestConsecutive(int[] nums) {
         if (nums == null || nums.length == 0)
             return 0;
