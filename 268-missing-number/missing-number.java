@@ -1,10 +1,11 @@
-class Solution {
+import java.util.Arrays;
 
+public class Solution {
     // M2-->Using Cycle Sort
     public int missingNumber(int[] arr) {
         CycleSort(arr, arr.length);
-				int i = 0;
-        for (i=0; i < arr.length; i++) {
+        int i = 0;
+        for (i = 0; i < arr.length; i++) {
             if (arr[i] != i) {
                 return i;
             }
@@ -12,13 +13,13 @@ class Solution {
 
         return i;
     }
-		public void swap(int[] arr, int i, int correctpos)
-	{
-	// swap elements with their correct indexes
-		int temp = arr[i];
-		arr[i] = arr[correctpos];
-		arr[correctpos] = temp;
-	}
+
+    public void swap(int[] arr, int i, int correctpos) {
+        // swap elements with their correct indexes
+        int temp = arr[i];
+        arr[i] = arr[correctpos];
+        arr[correctpos] = temp;
+    }
 
     public void CycleSort(int[] arr, int n) {
         int i = 0;
@@ -33,50 +34,40 @@ class Solution {
         System.out.println("After sort : ");
         System.out.print(Arrays.toString(arr));
     }
+
+    // M1-->Using Bit
+    public int missingNumber2(int[] arr) {
+        int xor = 0 ^ 0;
+        for (int i = 0; i < arr.length; i++) {
+            xor ^= arr[i];
+        }
+        for (int i = 0; i < arr.length + 1; i++) {
+            xor ^= i;
+        }
+        return xor;
+    }
+
+    public static int findMax(int[] array) {
+        if (array == null || array.length == 0) {
+            throw new IllegalArgumentException("The array is empty.");
+        }
+        int maxVal = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > maxVal) {
+                maxVal = array[i];
+            }
+        }
+        return maxVal;
+    }
+
+    // M3--->Using the total expected sum formula  -->  TRICKY WAY 
+    class Solution3 {
+        public int missingNumber3(int[] nums) {
+            int expectedSum = nums.length * (nums.length + 1) / 2;
+            int actualSum = 0;
+            for (int num : nums)
+                actualSum += num;
+            return expectedSum - actualSum;
+        }
+    }
 }
-//     // M1-->Using Bit
-//     public int missingNumber(int[] arr) {
-//         // int max=findMax(arr);
-//         // if(arr.length<max){
-//         //     return max;
-//         // }
-//         //         if(arr.length>max){
-//         //     return max+1;
-//         // }
-//         // //                 if(arr.length==max){
-//         // //     return max+1;
-//         // // }
-//         // // if(isSorted(arr)){
-//         // //     return arr[arr.length-1]+1;
-//         // // }
-//         int xor=0^0;
-//         for(int i=0;i<arr.length;i++){
-//             xor^=arr[i];
-//         }
-//                 for(int i=0;i<arr.length+1;i++){
-//             xor^=i;
-//         }
-//         return xor;
-// }
-//     // public static boolean isSorted(int[] arr) {
-//     //     int n = arr.length;
-//     //     for (int i = 0; i < n - 1; i++) {
-//     //         if (arr[i] > arr[i + 1]) {
-//     //             return false;
-//     //         }
-//     //     }
-//     //     return true;
-//     // }
-//       public static int findMax(int[] array) {
-//         if (array == null || array.length == 0) {
-//             throw new IllegalArgumentException("The array is empty.");
-//         }
-//         int maxVal = array[0];
-//         for (int i = 1; i < array.length; i++) {
-//             if (array[i] > maxVal) {
-//                 maxVal = array[i];
-//             }
-//         }
-//         return maxVal;
-//     }
-// }
