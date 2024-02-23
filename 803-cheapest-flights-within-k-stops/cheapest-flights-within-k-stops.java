@@ -1,5 +1,8 @@
 import java.util.*;
 
+// Dijstra But can't  Be Used for -ve Weighted Cycles 
+ 
+
 public class Solution {
     static class Edge {
         int src;
@@ -48,7 +51,7 @@ public class Solution {
             }
         }
 
-        Queue<Info> q = new LinkedList<>();
+   PriorityQueue<Info> q=new PriorityQueue<>((a,b)->a.stop-b.stop);
 
         q.add(new Info(src, 0, 0));
         while (!q.isEmpty()) {
@@ -71,5 +74,38 @@ public class Solution {
         } else {
             return dist[dest];
         }
+    }
+}
+
+
+// Bellman Ford Algo Bus  Queue Nhi use hota tho use prta hai thora but check krna eska TC acha kyu aaya ?
+
+class Solution2 {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+         int[] distance = new int[n];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[src] = 0;
+        for (int i = 0; i <= k; i++) {
+            if (isRoutePossible(distance, flights)) {
+                break;
+            }
+        }
+        return distance[dst] == Integer.MAX_VALUE ? -1 : distance[dst];
+    }
+    private boolean isRoutePossible(int[] dist, int[][] flights) {
+        int[] copy = Arrays.copyOf(dist, dist.length);
+        boolean result = true;
+
+        for (int[] flight : flights) {
+            int src = flight[0];
+            int dst = flight[1];
+            int  cost =flight[2];
+
+            if (copy[src] < Integer.MAX_VALUE && dist[dst] > dist[src] + cost) {
+                dist[dst] = cost + copy[src];
+                result = false;
+            }
+        }
+        return result;
     }
 }
