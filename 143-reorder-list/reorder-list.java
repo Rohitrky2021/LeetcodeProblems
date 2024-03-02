@@ -1,4 +1,3 @@
- 
 class Solution {
     public void reorderList(ListNode head) {
         if (head == null || head.next == null) return;
@@ -24,15 +23,15 @@ class Solution {
         }
 
         // Merge the first half and the reversed second half alternately
-        ListNode p1 = head;
-        ListNode p2 = prev;
-        while (p2 != null) {
-            ListNode temp1 = p1.next;
-            ListNode temp2 = p2.next;
-            p1.next = p2;
-            p1 = temp1;
-            p2.next = temp1;
-            p2 = temp2;
+        ListNode start = head;
+        ListNode end = prev;
+        while (end != null) {
+            ListNode temp1 = start.next;
+            ListNode temp2 = end.next;
+            start.next = end;
+            start = temp1;
+            end.next = start;
+            end = temp2;
         }
     }
 }
