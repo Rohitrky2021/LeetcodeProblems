@@ -1,51 +1,36 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        boolean ans=true;
-        ListNode start=head;
-        ListNode end=head ;
-        ListNode slow=head;
-        ListNode fast=head ;
-        int st=0;
-        int ed=0;
+        if (head == null || head.next == null) return true;
 
-// FInding the Mid
-        while(fast!=null && fast.next!=null){
-            slow=slow.next;
-            fast=fast.next.next;
+        ListNode slow = head;
+        ListNode fast = head;
+
+        // Find the middle of the list
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        ListNode mid=slow;
 
-// Rversing the List from Mid
-    ListNode prev=null,next=null,curr=mid;
-     while(curr!=null){
-        next=curr.next;
-        curr.next=prev;
-        prev=curr;
-        curr=next;
-    }
-    curr=prev;
-        System.out.println(curr.val+" "+start.val);
+        // Reverse the second half of the list
+        ListNode prev = null;
+        ListNode curr = slow;
+        ListNode next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
 
-// Using 2 pointer from start and end matcing them 
-    while(curr!=null){
-        if(curr.val!=start.val)return false;
-        System.out.println(curr.val+" "+start.val);
-         curr=curr.next;
-         start=start.next;
-    }
- 
-    return ans;
+        // Compare the reversed second half with the first half
+        ListNode p1 = head;
+        ListNode p2 = prev;
+        while (p2 != null) {
+            if (p1.val != p2.val) return false;
+            p1 = p1.next;
+            p2 = p2.next;
+        }
 
-        
+        return true;
     }
 }
