@@ -9,31 +9,42 @@
  * }
  */
 class Solution {
+    /**
+     * Removes the nth node from the end of the linked list.
+     * 
+     * @param head The head of the linked list.
+     * @param n    The position of the node to remove from the end.
+     * @return     The head of the updated linked list after removing the nth node from the end.
+     */
     public ListNode removeNthFromEnd(ListNode head, int n) {
+        // Check if the list is empty or has only one node
         if (head == null || head.next == null) return null;
-        int len=0,i=1;
-        ListNode  check=head,st=head;
 
-        while(check!=null){
-            check=check.next;
+        int len = 0; // Variable to store the length of the list
+        ListNode check = head; // Pointer to traverse the list for length calculation
+        ListNode st = head; // Pointer to find the node before the one to be removed
+
+        // Calculate the length of the list
+        while (check != null) {
+            check = check.next;
             len++;
         }
-        if(n-len+1==1)return head.next;
 
-        // From start it will be ( N- k+1){}
+        // If the node to remove is the first node
+        if (n - len + 1 == 1) return head.next;
 
-        while(i!=len-n+1-1 && st.next!=null ){
-            st=st.next;
+        // Move to the node before the one to be removed
+        int i = 1;
+        while (i != len - n + 1 - 1 && st.next != null) {
+            st = st.next;
             i++;
         }
 
-        if(st.next!=null)
-                st.next=st.next.next;
-        else st.next=null;        
-        // while(i!=len-k+1-1){
-        //     st=st.next;
-        // }
-
+        // Remove the nth node from the end
+        if (st.next != null)
+            st.next = st.next.next;
+        else
+            st.next = null;
 
         return head;
     }
