@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
     public int finalValueAfterOperations(String[] oper) {
         int ans=0;
 
@@ -10,5 +10,21 @@ class Solution {
         }
  
         return plus-minus;
+    }
+}
+
+class Solution {
+    public int finalValueAfterOperations(String[] oper) {
+        int result = 0;
+
+        for (String x : oper) {
+            if (x.charAt(1) == '-') {
+                result--;
+            } else {
+                result++;
+            }
+        }
+
+        return result;
     }
 }
