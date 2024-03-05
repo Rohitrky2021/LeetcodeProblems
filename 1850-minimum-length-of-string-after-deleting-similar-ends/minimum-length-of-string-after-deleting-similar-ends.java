@@ -1,4 +1,4 @@
-public class Solution {
+class Solution1 {
     public int minimumLength(String si) {
         int n = si.length(); // Corrected variable name from s.length to si.length
         char[] s = si.toCharArray();
@@ -61,5 +61,31 @@ public class Solution {
             if(s[starti] == s[lasti] && starti!=lasti)return 0;
         // Return the number of remaining characters
         return lasti - starti + 1;
+    }
+}
+
+
+public class Solution {
+    public int minimumLength(String s) {
+        int begin = 0;
+        int end = s.length() - 1;
+
+        // Delete similar ends until the ends differ or they meet in the middle
+        while (begin < end && s.charAt(begin) == s.charAt(end)) {
+            char c = s.charAt(begin);
+
+            // Delete consecutive occurrences of c from prefix
+            while (begin <= end && s.charAt(begin) == c) {
+                begin++;
+            }
+
+            // Delete consecutive occurrences of c from suffix
+            while (end > begin && s.charAt(end) == c) {
+                end--;
+            }
+        }
+
+        // Return the number of remaining characters
+        return end - begin + 1;
     }
 }
