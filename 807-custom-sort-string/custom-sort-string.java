@@ -9,17 +9,15 @@ class Solution {
 
         for (char x : s.toCharArray()) {
             if (hs.containsKey(x)) {
+                 freq[x - 'a'] ++;
                 hs.put(x, hs.get(x) + 1); // Incrementing the count for existing character
             } else {
+                 freq[x - 'a'] = 1;
                 hs.put(x, 1); // Adding new character to the HashMap
             }
         }
         
-        // Storing frequencies in freq array
-        for (char x : s.toCharArray()) {
-            freq[x - 'a'] = hs.get(x);
-        }
-
+ 
         // Here's a simple approach to get sorted characters
         StringBuilder sortedString = new StringBuilder();
         for (char c : order.toCharArray()) {
