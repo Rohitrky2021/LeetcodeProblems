@@ -1,39 +1,28 @@
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Arrays;
 
 class Solution {
     public String customSortString(String order, String s) {
-        int[] freq = new int[26]; // Frequencies of characters in 's'
-        StringBuilder ans = new StringBuilder(""); // Fixed StringBuilder declaration
-
-        HashSet<Character> hs = new HashSet<>(); // Changed to HashSet
-
-        for (char x : s.toCharArray()) {
-            if (hs.contains(x)) {
-                freq[x - 'a']++;
-            } else {
-                freq[x - 'a'] = 1;
-                hs.add(x); // Adding new character to the HashSet
+        int[] arr = new int[26];
+        for (char ch : s.toCharArray()) {
+            arr[ch - 'a']++;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+    
+        for (char ch : order.toCharArray()) {
+            while (arr[ch - 'a'] != 0) {
+                sb.append(ch);
+                arr[ch - 'a']--;
             }
         }
 
-        // Here's a simple approach to get sorted characters
-        StringBuilder sortedString = new StringBuilder();
-        for (char c : order.toCharArray()) {
-            while (freq[c - 'a'] > 0) {
-                sortedString.append(c);
-                freq[c - 'a']--; // Decreasing the frequency after appending
+        for (int i = 0; i < 26; i++) {
+            while (arr[i] != 0) {
+                sb.append((char)(i + 'a'));
+                arr[i]--;
             }
         }
 
-        // Append the remaining characters (if any) from s which are not present in the custom order
-        for (char key : hs) {
-            while (freq[key - 'a'] > 0) {
-                sortedString.append(key);
-                freq[key - 'a']--; // Decreasing the frequency after appending
-            }
-        }
-
-        return sortedString.toString();
+        return sb.toString();
     }
 }
