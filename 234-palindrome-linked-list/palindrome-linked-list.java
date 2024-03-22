@@ -5,13 +5,13 @@ class Solution {
         ListNode slow = head;
         ListNode fast = head;
 
-        // Find the middle of the list
+        // 1. Find the middle of the list
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        // Reverse the second half of the list
+        //2.  Reverse the second half of the list
         ListNode prev = null;
         ListNode curr = slow;
         ListNode next;
@@ -22,7 +22,7 @@ class Solution {
             curr = next;
         }
 
-        // Compare the reversed second half with the first half
+        //3. Compare the reversed second half with the first half
         ListNode p1 = head;
         ListNode p2 = prev;
         while (p2 != null) {
