@@ -15,7 +15,7 @@ class Solution {
             
            st.put(x,st.getOrDefault(x,0)+1);
             maxLength = Math.max(maxLength, right-left+1);
-            System.out.println(maxLength);
+         
            
 
         }
