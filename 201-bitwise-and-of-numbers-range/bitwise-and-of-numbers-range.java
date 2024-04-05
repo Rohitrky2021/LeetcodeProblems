@@ -27,6 +27,7 @@ class Solution1 {
 
 
 // Approach 3
+
 // Description: Set the rightmost 1 bit of right to 0 until left >= right.
 // Time Complexity: O(popcount(right))
 // Space Complexity: O(1)
