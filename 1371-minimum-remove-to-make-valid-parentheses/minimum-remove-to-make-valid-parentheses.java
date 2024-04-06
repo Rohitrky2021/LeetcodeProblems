@@ -34,6 +34,7 @@ public class Solution {
     }
 }
 
+
  class Solution2 {
 
     public String minRemoveToMakeValid(String s) {
