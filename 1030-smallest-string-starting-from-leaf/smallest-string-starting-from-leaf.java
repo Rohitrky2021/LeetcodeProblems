@@ -33,10 +33,10 @@ class Solution {
         ans.append((char) ('a' + root.val));
 
         if (root.left == null && root.right == null) {
-            // s.add(ans.reverse().toString());
-            // ans.reverse();
+            s.add(ans.reverse().toString());
+            ans.reverse();
 
-        s.add(new StringBuilder(ans).reverse().toString());
+        // s.add(new StringBuilder(ans).reverse().toString());
 
         }
 
