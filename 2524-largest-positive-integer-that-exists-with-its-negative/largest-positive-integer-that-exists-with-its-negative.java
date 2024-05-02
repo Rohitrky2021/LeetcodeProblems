@@ -1,7 +1,7 @@
 class Solution {
     public int findMaxK(int[] nums) {
 
-        int fr[]=new int[10000];
+        int fr[]=new int[1010];
 
         for(int i:nums){
             // i=Math.abs(i);
