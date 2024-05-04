@@ -1,9 +1,9 @@
 class Solution {
     public int compareVersion(String version1, String version2) {
         
-        String [] one = version1.split("\\.");
+        String [] one = version1.split("[.]");
         
-        String [] two = version2.split("\\.");
+        String [] two = version2.split("[.]");
 
         for(int i=0;i<Math.max(one.length,two.length);i++){
 
