@@ -17,6 +17,7 @@ class Solution {
         List<List<String>> ans = new ArrayList<>();
         helper(0, s, ans, path, dp);
         System.gc();
+        
 
         return ans;
     }
