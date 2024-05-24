@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-class Solution {
+class Solution1 {
     public boolean asteroidsDestroyed(int mass, int[] ast) {
 
         long ans = 0 , n = ast.length;
@@ -22,3 +22,22 @@ class Solution {
         return flag;
     }
 }
+
+
+class Solution {
+    public boolean asteroidsDestroyed(int mass, int[] asteroids) {
+        Arrays.sort(asteroids);
+        long m = mass;
+        for (int ast : asteroids) {
+            if (m >= ast) {
+                m += ast;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+} 
+ 
+ 
