@@ -20,7 +20,7 @@ class Solution1 {
     }
 }
 
-class Solution {
+class Solution2 {
     public boolean checkRecord(String s) {
 
         char[] mn=s.toCharArray();
@@ -37,5 +37,18 @@ class Solution {
 
         return flag && ca<2;
 
+    }
+}
+
+class Solution {
+    public boolean checkRecord(String s) {
+        int ca = 0;
+        if (s.contains("LLL")) return false;
+        
+        for (char c : s.toCharArray()) {
+            if (c == 'A') ca++;
+        }
+        
+        return ca < 2;
     }
 }
