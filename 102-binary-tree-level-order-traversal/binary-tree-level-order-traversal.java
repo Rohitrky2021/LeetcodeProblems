@@ -1,6 +1,6 @@
 /**
- * Definition for a binary tree TreeNode.
- * public class TreeTreeNode {
+ * Definition for a binary tree node.
+ * public class TreeNode {
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
@@ -15,36 +15,34 @@
  */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-         Queue<TreeNode> q = new LinkedList<>();
-            ArrayList<List<Integer>> ans = new ArrayList<>();
-            if (root == null) {
-                return ans;
-            }
-
-            q.offer(root);
-           
-            while (!q.isEmpty()) {
-
-                int levelSize=q.size();
-
-                List<Integer> currentlevel=new ArrayList<>();
-
-                for (int i = 0; i < levelSize; i++) {
-                    TreeNode curr=q.poll();
-                    currentlevel.add(curr.val);
-
-                    if(curr.left!=null){
-                        q.offer(curr.left); // Adding the left part of Node 
-                    }
-                    if(curr.right!=null){  // Adding the Right part of Node 
-                        q.offer(curr.right);
-                    }
-
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root==null)
+        {
+            return new ArrayList<>(0);
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int c=0;
+        while(q.size()>0)
+        {
+            int len = q.size();
+            List<Integer> sub = new ArrayList<>();
+            for(int i=0;i<len;i++)
+            {
+                TreeNode node1 = q.poll();
+                sub.add(node1.val);
+                if(node1.left!=null)
+                {
+                    q.offer(node1.left);
                 }
-
-                ans.add(currentlevel);
+                if(node1.right!=null)
+                {
+                    q.offer(node1.right);
+                }
             }
-            return ans;
+            ans.add(sub);
+            c++;
+        }
+        return ans;
     }
-            
 }
