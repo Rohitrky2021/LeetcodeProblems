@@ -8,7 +8,10 @@ class Solution {
             x^=num;
         }
 
-        int mask=x&((~x+1));
+        // int mask=x&((~x+1));
+// or the Above line can also be written as
+        int mask=x&(-x);
+
 
         for(int num:nums){
             if((num & mask)!=0){
