@@ -19,7 +19,7 @@ class Solution1 {
 }
 
 
-class Solution {
+class Solution2 {
     public int singleNumber(int[] nums) {
         int ans=0;
         for(int i=0;i<32;i++){
@@ -40,5 +40,14 @@ class Solution {
 }
 
 
-
+class Solution {
+    public int singleNumber(int[] nums) {
+       int ones = 0, twos = 0;
+        for (int n : nums) {
+            ones = (ones ^ n) & ~twos;
+            twos = (twos ^ n) & ~ones;
+        }
+        return ones;
+    }
+}
 
