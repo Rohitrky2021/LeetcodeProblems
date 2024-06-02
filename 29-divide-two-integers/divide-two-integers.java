@@ -1,20 +1,20 @@
-class Solution1 {
+class Solution {
     public int divide(int dividend, int divisor) {
         if (dividend == Integer.MIN_VALUE && divisor == -1)  // Corner Case
             return Integer.MAX_VALUE; 
 
         long ans = (long) dividend / divisor;
 
-        if (ans < Integer.MIN_VALUE)
-            return Integer.MIN_VALUE;
-        else if (ans > Integer.MAX_VALUE)
-            return Integer.MAX_VALUE;
-        else
+        // if (ans < Integer.MIN_VALUE)
+        //     return Integer.MIN_VALUE;
+        // else if (ans > Integer.MAX_VALUE)
+        //     return Integer.MAX_VALUE;
+        // else
             return (int) ans;
     }
 }
 
-class Solution {
+class Solution2 {
     public int divide(int dividend, int divisor) {
 
         int ans;
