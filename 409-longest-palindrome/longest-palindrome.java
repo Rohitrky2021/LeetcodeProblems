@@ -1,9 +1,10 @@
 class Solution {
     public int longestPalindrome(String st) {
-        int[] frequency = new int[128]; // Assuming ASCII characters
+        int[] frequency = new int[70]; // Assuming ASCII characters
 
         for (char c : st.toCharArray()) {
-            frequency[c]++;
+            System.out.println((int)c);
+            frequency[c-'A']++;
         }
 
         int evenCount = 0;
