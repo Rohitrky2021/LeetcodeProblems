@@ -1,7 +1,7 @@
 class Solution {
     public int longestPalindrome(String st) {
 
-        int fre[]=new int[200];
+        int fre[]=new int[128];
 
         for(char x:st.toCharArray()){
             fre[(int)x]++;
