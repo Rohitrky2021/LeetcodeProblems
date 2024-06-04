@@ -1,24 +1,19 @@
 class Solution {
     public int longestPalindrome(String st) {
+        int[] frequency = new int[128]; // Assuming ASCII characters
 
-        int fre[]=new int[128];
-
-        for(char x:st.toCharArray()){
-            fre[(int)x]++;
+        for (char c : st.toCharArray()) {
+            frequency[c]++;
         }
 
-        int d=0,s=0;
+        int evenCount = 0;
+        int oddCount = 0;
 
-        for(int x:fre){
-                    System.out.println("x "+x);
-
-          d+=x/2;
-          s+=x%2;
+        for (int freq : frequency) {
+            evenCount += freq / 2;
+            oddCount += freq % 2;
         }
 
-        System.out.println("d "+d+" s "+s);
-
-        return  2*d+(s==0?0:1);
-
+        return 2 * evenCount + (oddCount > 0 ? 1 : 0);
     }
 }
