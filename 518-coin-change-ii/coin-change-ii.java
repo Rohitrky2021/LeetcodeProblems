@@ -10,7 +10,7 @@ class Solution {
 
     public static int subsetCount(int[] arr, int sum, int n) {
          if (sum == 0)
-            return 1;
+            return tmp[n][sum]= 1;
              if (sum < 0)
             return 0;   
         if (n == 0)
