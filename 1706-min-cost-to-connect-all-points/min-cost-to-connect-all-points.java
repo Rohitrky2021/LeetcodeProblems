@@ -66,7 +66,7 @@ class Solution {
         }
         
         // Sort all edges in increasing order.
-        Collections.sort(allEdges, (a, b) -> Integer.compare(a[0], b[0]));   
+        Collections.sort(allEdges, (a, b) ->  (a[0]-b[0]));   
         
         UnionFind uf = new UnionFind(n);
         int mstCost = 0;
