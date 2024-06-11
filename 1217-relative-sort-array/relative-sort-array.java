@@ -71,7 +71,7 @@ class Solution2 {
     }
 }
  
-class Solution {
+class Solution3 {
     public int[] relativeSortArray(int[] arr1, int[] arr2) {
         // Convert arr1 to an Integer array
         Integer[] arr1Integer = Arrays.stream(arr1).boxed().toArray(Integer[]::new);
@@ -108,3 +108,27 @@ class Solution {
     }
 }
 
+class Solution {
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+ Map<Integer, Integer> indexMap = new HashMap<>();
+        for (int i = 0; i < arr2.length; i++) {
+            indexMap.put(arr2[i], i);
+        }
+
+        return Arrays.stream(arr1)
+                .boxed()
+                .sorted((a, b) -> {
+                    if (indexMap.containsKey(a) && indexMap.containsKey(b)) {
+                        return indexMap.get(a) - indexMap.get(b);
+                    } else if (indexMap.containsKey(a)) {
+                        return -1;
+                    } else if (indexMap.containsKey(b)) {
+                        return 1;
+                    } else {
+                        return a - b;
+                    }
+                })
+                .mapToInt(i -> i)
+                .toArray();
+
+    }}
