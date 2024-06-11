@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
     public int[] relativeSortArray(int[] arr1, int[] arr2) {
 
         int freq[]=new int[1005];
@@ -31,3 +31,80 @@ class Solution {
         
     }
 }
+ 
+class Solution2 {
+
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        Map<Integer, Integer> countMap = new HashMap<>();
+        List<Integer> remaining = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
+
+        // Initialize count map with relative order elements
+        for (int value : arr2) {
+            countMap.put(value, 0);
+        }
+
+        // Count occurrences of elements in target array
+        for (int value : arr1) {
+            if (countMap.containsKey(value)) {
+                countMap.put(value, countMap.get(value) + 1);
+            } else {
+                remaining.add(value);
+            }
+        }
+
+        // Sort the remaining elements
+        Collections.sort(remaining);
+
+        // Add elements as per relative order
+        for (int value : arr2) {
+            for (int j = 0; j < countMap.get(value); j++) {
+                result.add(value);
+            }
+        }
+
+        // Add remaining elements
+        result.addAll(remaining);
+
+        // Convert ArrayList to array
+        return result.stream().mapToInt(Integer::intValue).toArray();
+    }
+}
+ 
+class Solution {
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        // Convert arr1 to an Integer array
+        Integer[] arr1Integer = Arrays.stream(arr1).boxed().toArray(Integer[]::new);
+        
+        // Create a map to store the rank of each element in arr2
+        Map<Integer, Integer> rankMap = new HashMap<>();
+        for (int i = 0; i < arr2.length; i++) {
+            rankMap.put(arr2[i], i);
+        }
+
+        // Sort arr1 using a custom comparator
+        Arrays.sort(arr1Integer, (a, b) -> {
+            if (rankMap.containsKey(a) && rankMap.containsKey(b)) {
+                return rankMap.get(a) - rankMap.get(b);
+            } else if (rankMap.containsKey(a)) {
+                return -1;
+            } else if (rankMap.containsKey(b)) {
+                return 1;
+            } else {
+                return Integer.compare(a, b);
+            }
+        });
+
+        // Convert arr1Integer back to an int array
+        return Arrays.stream(arr1Integer).mapToInt(Integer::intValue).toArray();
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        int[] arr1 = {2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19};
+        int[] arr2 = {2, 1, 4, 3, 9, 6};
+        int[] result = solution.relativeSortArray(arr1, arr2);
+        System.out.println(Arrays.toString(result));
+    }
+}
+
