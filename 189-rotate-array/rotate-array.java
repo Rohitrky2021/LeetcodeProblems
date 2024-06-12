@@ -10,12 +10,9 @@ class Solution2 {
         for (int i = 0; i < nums.length; i++) {
             nums[i] = ans[i];
         }
-
-
-         
-        
     }
 }
+
 
 // Approach 3: Using Cyclic Replacements
 class Solution {
