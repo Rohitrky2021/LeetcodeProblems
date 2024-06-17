@@ -10,7 +10,7 @@ class Solution1 {
 
         // int mask=x&((~x+1));
 // or the Above line can also be written as
-        int mask=x&(-x);   /// Its the lowest Set bit 
+        int mask=x&(-x);   /// Its the lowest Set bit means on the right most 
 
 
         for(int num:nums){
@@ -36,22 +36,24 @@ class Solution {
             x ^= num;
         }
         
+        long mask = 0;
         // Step 2: Find the lowest set bit in x using the array
         for (int i = 0; i < 64; i++) {
             if ((x & (1L << i)) != 0) {
                 bitCount[i] = 1;
+                mask = 1L << i;
+
                 break;
             }
         }
         
-        // Step 3: Use the bitCount array to create the mask
-        long mask = 0;
-        for (int i = 0; i < 64; i++) {
-            if (bitCount[i] == 1) {
-                mask = 1L << i;
-                break;
-            }
-        }
+        // // Step 3: Use the bitCount array to create the mask
+        // for (int i = 0; i < 64; i++) {
+        //     if (bitCount[i] == 1) {
+        //         mask = 1L << i;
+        //         break;
+        //     }
+        // }
         
         // Step 4: Divide the numbers into two groups and XOR within each group
         for (long num : nums) {
