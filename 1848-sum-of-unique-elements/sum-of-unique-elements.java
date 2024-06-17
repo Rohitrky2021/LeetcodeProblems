@@ -1,6 +1,6 @@
 class Solution {
     public int sumOfUnique(int[] arr) {
-         int f[] = new int[2040];
+         int f[] = new int[101];
 
        int ans=0;
 
