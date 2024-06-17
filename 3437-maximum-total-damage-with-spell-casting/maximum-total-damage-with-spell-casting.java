@@ -1,3 +1,40 @@
+ 
+ class Solution {
+    public long maximumTotalDamage(int[] arr) {
+        Arrays.sort(arr);
+
+        TreeMap<Integer, Integer> freqMap = new TreeMap<>();
+        for (int num : arr) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        List<Map.Entry<Integer, Integer>> freqList = new ArrayList<>(freqMap.entrySet());
+
+        long[] dp = new long[freqList.size()];
+
+        for (int i = 0; i < freqList.size(); i++) {
+            int dmg = freqList.get(i).getKey();
+            int cnt = freqList.get(i).getValue();
+
+            long take = (long) dmg * cnt;
+            long noTake = (i > 0 ? dp[i - 1] : 0);
+
+            for (int j = i - 1; j >= 0; j--) {
+                if (Math.abs(dmg - freqList.get(j).getKey()) > 2) {
+                    take += dp[j];
+                    break;
+                }
+            }
+
+            dp[i] = Math.max(take, noTake);
+        }
+
+        return dp[dp.length - 1];
+    }
+}
+
+// ------------------------------------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 class Solution1 {
     public long maximumTotalDamage(int[] nums) {
         Arrays.sort(nums);
@@ -58,7 +95,7 @@ class Solution2 {
 // ------------------------------------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-class Solution {
+class Solution3 {
     public long maximumTotalDamage(int[] power) {
         TreeMap<Integer, Integer> count = new TreeMap<>();
         for (int p : power) {
