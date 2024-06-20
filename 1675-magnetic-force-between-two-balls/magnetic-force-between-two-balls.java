@@ -6,8 +6,10 @@ class Solution {
         int n = position.length;
 
         int low = 1;
-        int high = (position[n - 1] - position[0])/(m - 1);
-        
+        m--;
+        int high=position[n-m]-position[0];
+
+        m++;        
         while (low < high) {
             int mid = (high - low + 1) / 2 + low;
             if (canPlaceBalls(position, n, m, mid)) {
