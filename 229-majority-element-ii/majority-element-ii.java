@@ -24,7 +24,7 @@ public class Solution {
             if (mpp.get(v[i]) == mini) {
                 ls.add(v[i]);
             }
-            // if (ls.size() == 2) break;
+            if (ls.size() == 2) break;
         }
 
         return ls;
