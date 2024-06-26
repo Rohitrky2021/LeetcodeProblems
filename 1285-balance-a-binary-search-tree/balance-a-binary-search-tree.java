@@ -19,7 +19,6 @@ class Solution {
         if (node == null) {
             return;
         }
-
         inorderHelper(node.left, result);
         result.add(node.val);
         inorderHelper(node.right, result);
@@ -28,16 +27,16 @@ class Solution {
     public TreeNode balanceBST(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         inorderHelper(root, result);
-        return creatBalancedBST( result.stream().mapToInt(i -> i).toArray(), 0,result.size()-1, root);
+        return creatBalancedBST(  result, 0,result.size()-1, root);
     }
 
-     TreeNode creatBalancedBST(int values[], int s, int e, TreeNode root) {
+     TreeNode creatBalancedBST(List<Integer> values, int s, int e, TreeNode root) {
         if (s > e) {
             return null;
         }
         int mid = (s + e) / 2;
 
-        root = new TreeNode(values[mid]);
+        root = new TreeNode(values.get(mid));
         root.left = creatBalancedBST(values, s, mid - 1, root.left);
         root.right = creatBalancedBST(values, mid + 1, e, root.right);
 
