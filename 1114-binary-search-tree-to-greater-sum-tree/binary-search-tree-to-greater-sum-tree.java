@@ -13,7 +13,7 @@
  *     }
  * }
  */
-class Solution1 {
+class Solution {
     public TreeNode bstToGst(TreeNode root) {
         if (root == null) return null;
         int[] sum = new int[1]; // to hold the cumulative sum
@@ -32,7 +32,7 @@ class Solution1 {
     }
 }
 
-class Solution {
+class Solution2 {
     public TreeNode bstToGst(TreeNode root) {
         int[] ans = new int[101];
 
