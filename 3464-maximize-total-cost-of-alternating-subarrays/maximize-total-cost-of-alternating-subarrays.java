@@ -65,14 +65,37 @@ class Solution {
         if (fresh == 0) {
             take = nums[i] + solve(i + 1, 0, nums, memo);
             subtrac = -nums[i] + solve(i + 1, 1, nums, memo);
+            ans=Math.max(take,subtrac);
         } else {
             take = nums[i] +  solve(i + 1, 0, nums, memo);
             memo.put(key,take);
-            return take;
+            ans=take;
+            
         }
-        ans=Math.max(take,subtrac);
         memo.put(key,ans);
         return ans;
     }
 
+}
+
+
+class Solution4 {
+    public long helper(int[]arr,int i,int prev,long[][]dp){
+        if(i==arr.length)return 0;
+        if(dp[i][prev]!=(long)(-1e9))return dp[i][prev];
+        long not=arr[i]+helper(arr,i+1,1,dp);
+        if(prev!=0){
+            not=Math.max(not,(-1*arr[i])+helper(arr,i+1,0,dp));
+        }
+        // long take=arr[i]+(-1*prev)+helper(arr,i+1,1-prev,dp);
+        return dp[i][prev]=not;
+    }
+    public long maximumTotalCost(int[] nums) {
+        int n = nums.length;
+        long [][]dp=new long[n][2];
+        for(long []i:dp){
+            Arrays.fill(i,(long)(-1e9));
+        }
+        return helper(nums,0,0,dp);
+    }
 }
