@@ -24,3 +24,45 @@ class Solution {
         return ans;
     }
 }
+
+// 2nd hamra ek Array se hi kaam hojaata as we know only the frequenc count
+class Solution2 {
+    public long maximumImportance(int n, int[][] roads) {
+        int[] freq = new int[n];
+        for (int[] road: roads) {
+            ++freq[road[0]];
+            ++freq[road[1]];
+        }
+        Arrays.sort(freq);
+
+        long importanceSum = 0;
+        for (int i = 0; i < n; ++i) {
+            importanceSum += freq[i] * (i + 1L);
+        }
+
+        return importanceSum;
+    }
+}
+
+//  WIthout sorting method 
+class Solution3 {
+    public long maximumImportance(int n, int[][] roads) {
+        int[] br = new int[n];
+        for(int[] r : roads){
+            br[r[0]]++;
+            br[r[1]]++;
+        }
+        int[] cnt = new int[n];
+        for(int b : br){
+            cnt[b]++;
+        }
+        long sum = 0;
+        long val = 1;
+        for(long i = 0; i < n; i++){
+            for(int j = 0; j < cnt[(int)i]; j++){
+                sum += i*val++;
+            }
+        }
+        return sum;
+    }
+}
