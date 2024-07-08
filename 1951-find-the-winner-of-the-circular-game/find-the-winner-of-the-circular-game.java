@@ -1,4 +1,22 @@
+ 
+//  TRicky way 
  class Solution {
+    public int findTheWinner(int n, int k) {
+        if (k == 1) return n;
+
+        int winner = 0;
+        for (int i = 2; i <= n; i++) {
+            winner = (winner + k) % i;
+        }
+        
+        return winner + 1;
+    }
+}
+
+ 
+ 
+ 
+ class Solution2 {
     public int findTheWinner(int n, int k) {
         if(k==1)return n;
         int freq[] = new int[n];
@@ -33,6 +51,8 @@
         return -1;  // In case something goes wrong
     }
 }
+
+
 
 // 1 2 3 4 5
 // 2 4 6 8 10
