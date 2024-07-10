@@ -24,17 +24,17 @@ class Solution {
         if (d == 0 || i == jb.length) {
             return 10000;
         }
+        int min=10000;
 
         max = Math.max(max, jb[i]);
         
         // take in my current day 
         int take = dfs(i + 1, jb, d, max);
-        int min=take;
-        
+
         // ignore
         int ignore= max + dfs(i + 1, jb, d - 1, -1);
 
-        min = Math.min(min,ignore); //abtuk ka max or   new day ka call bhej do 
+        min = Math.min(min,Math.min(ignore,take)); //abtuk ka max or   new day ka call bhej do 
 
         map.put(key, min);
         return min;
