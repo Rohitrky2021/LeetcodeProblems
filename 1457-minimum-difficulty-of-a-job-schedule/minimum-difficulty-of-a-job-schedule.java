@@ -14,7 +14,7 @@ class Solution {
     }
 
     int dfs(int i, int[] jb, int d, int max) {
-        String key = i + " " + d + " " + max;
+        String key = i + "," + d + "," + max;
         if (map.containsKey(key)) {
             return map.get(key);
         }
