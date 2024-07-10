@@ -24,7 +24,7 @@ class Solution {
         if (d == 0 || i == jb.length) {
             return 10000;
         }
-        int min=10000;
+        int ans=10000;
 
         max = Math.max(max, jb[i]);
         
@@ -34,10 +34,10 @@ class Solution {
         // ignore
         int ignore= max + dfs(i + 1, jb, d - 1, -1);
 
-        min = Math.min(min,Math.min(ignore,take)); //abtuk ka max or   new day ka call bhej do 
+        ans = Math.min(ans,Math.min(ignore,take)); //abtuk ka max or   new day ka call bhej do 
 
-        map.put(key, min);
-        return min;
+        map.put(key, ans);
+        return ans;
     }
 }
 
