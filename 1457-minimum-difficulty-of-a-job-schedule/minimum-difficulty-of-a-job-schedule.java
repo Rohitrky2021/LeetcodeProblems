@@ -28,13 +28,13 @@ class Solution {
 
         max = Math.max(max, jb[i]);
         
-        // take in my current day 
-        int take = dfs(i + 1, jb, d, max);
+        // ignore & take in my current day 
+        int ignore= dfs(i + 1, jb, d, max);
 
-        // ignore
-        int ignore= max + dfs(i + 1, jb, d - 1, -1);
+        // Take &  take & start new day by breaking here only 
+        int take= max + dfs(i + 1, jb, d - 1, -1);//abtuk ka max or   new day ka call bhej do  
 
-        ans = Math.min(ans,Math.min(ignore,take)); //abtuk ka max or   new day ka call bhej do 
+        ans = Math.min(ans,Math.min(ignore,take)); 
 
         map.put(key, ans);
         return ans;
