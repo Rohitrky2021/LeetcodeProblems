@@ -26,7 +26,7 @@ class Solution {
         }
         int ans=10000;
 
-        max = Math.max(max, jb[i]);
+        max = Math.max(max, jb[i]);  // take m -1 bheja tha tho now max will be the new max for the current day loop
         
         // ignore & take in my current day 
         int ignore= dfs(i + 1, jb, d, max);
@@ -34,12 +34,49 @@ class Solution {
         // Take &  take & start new day by breaking here only 
         int take= max + dfs(i + 1, jb, d - 1, -1);//abtuk ka max or   new day ka call bhej do  
 
-        ans = Math.min(ans,Math.min(ignore,take)); 
+        ans = (Math.min(ignore,take)); 
 
         map.put(key, ans);
         return ans;
     }
 }
+
+ 
+class Solution4 {
+    Map<String, Integer> map = new HashMap<>();
+
+    public int minDifficulty(int[] jobDifficulty, int d) {
+        if (jobDifficulty.length < d) {
+            return -1;
+        }
+        return dfs(0, jobDifficulty, d, -1);
+    }
+
+    int dfs(int i, int[] jb, int d, int max) {
+        String key = i + " " + d + " " + max;
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+        if (d == 0 && i == jb.length) {
+            return 0;
+        }
+        if (d == 0 || i == jb.length) {
+            return 10000;
+        }
+
+        max = Math.max(max, jb[i]);
+        
+        // take
+        int min = dfs(i + 1, jb, d, max);
+
+        // ignore
+        min = Math.min(min, max + dfs(i + 1, jb, d - 1, -1));
+
+        map.put(key, min);
+        return min;
+    }
+}
+
 
 
 class Solution3 {
