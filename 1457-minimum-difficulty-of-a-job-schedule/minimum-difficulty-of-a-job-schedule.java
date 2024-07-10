@@ -1,6 +1,48 @@
 import java.util.Arrays;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
+    Map<String, Integer> map = new HashMap<>();
+
+    public int minDifficulty(int[] jobDifficulty, int d) {
+        if (jobDifficulty.length < d) {
+            return -1;
+        }
+        return dfs(0, jobDifficulty, d, -1);
+    }
+
+    int dfs(int i, int[] jb, int d, int max) {
+        String key = i + " " + d + " " + max;
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+        if (d == 0 && i == jb.length) {
+            return 0;
+        }
+        if (d == 0 || i == jb.length) {
+            return 10000;
+        }
+
+        max = Math.max(max, jb[i]);
+        
+        // take in my current day 
+        int take = dfs(i + 1, jb, d, max);
+        int min=take;
+        
+        // ignore
+        int ignore= max + dfs(i + 1, jb, d - 1, -1);
+
+        min = Math.min(min,ignore); //abtuk ka max or   new day ka call bhej do 
+
+        map.put(key, min);
+        return min;
+    }
+}
+
+
+class Solution3 {
     public int minDifficulty(int[] jobDifficulty, int d) {
         return help(jobDifficulty, d, 0, new Integer[jobDifficulty.length][d + 1]);
     }
