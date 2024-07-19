@@ -252,7 +252,7 @@ class Solution3 {
 }
 
 
-class Solution {
+class Solution4 {
     public int countPairs(TreeNode root, int distance) {
         if (root == null) {
             return 0;
@@ -284,4 +284,62 @@ class Solution {
         dfs(root.right, cnt, i + 1);
     }
 }
+
+// Now using LCA 
+ 
+
+class Solution {
+    // Definition for a binary tree node.
+     
+    boolean goodLeaf(String str1, String str2, int distance) {
+        int n = Math.min(str1.length(), str2.length());
+        int i = 0;
+        for (; i < n; i++) {
+            if (str1.charAt(i) != str2.charAt(i)) break;
+        }
+        int len1 = str1.length() - i;
+        int len2 = str2.length() - i;
+        return (len1 + len2) <= distance;
+    }
+
+    void f(TreeNode root, List<String> path, StringBuilder temp) {
+        if (root == null) {
+            return;
+        }
+        if (root.left != null) {
+            temp.append('L');
+            f(root.left, path, temp);
+            temp.deleteCharAt(temp.length() - 1);
+        }
+        if (root.right != null) {
+            temp.append('R');
+            f(root.right, path, temp);
+            temp.deleteCharAt(temp.length() - 1);
+        }
+        if (root.left == null && root.right == null) {
+            path.add(temp.toString());
+        }
+        return;
+    }
+
+    public int countPairs(TreeNode root, int distance) {
+        List<String> path = new ArrayList<>();
+        StringBuilder temp = new StringBuilder();
+        f(root, path, temp);
+        int ret = 0;
+        for (int i = 0; i < path.size(); i++) {
+            for (int j = i + 1; j < path.size(); j++) {
+                if (goodLeaf(path.get(i), path.get(j), distance)) {
+                    ret++;
+                }
+            }
+        }
+        return ret;
+    }
+
+     
+}
+
+
+
 
