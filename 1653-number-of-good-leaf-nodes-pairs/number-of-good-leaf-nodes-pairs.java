@@ -15,7 +15,7 @@
  */
 import java.util.*;
 
-class Solution {
+class Solution1 {
     // Create graph from Tree 
     public void Treetograph(Map<TreeNode, List<TreeNode>> graph, TreeNode node) {
         if (node == null) return;
@@ -191,7 +191,7 @@ class Solution2 {
                     queue.add(neighbor);
 
                     if (currentDist + 1 <= distance && leafNodes.contains(neighbor) &&
-                        leafNodes.indexOf(current) < leafNodes.indexOf(neighbor)) {
+                        leafNodes.indexOf(current) < leafNodes.indexOf(neighbor)) {      // Only adjusted these callls 
                         count++;
                     }
                 }
@@ -213,6 +213,75 @@ class Solution2 {
         Solution solution = new Solution();
         int result = solution.countPairs(root, 3);
         System.out.println("Number of pairs: " + result);
+    }
+}
+
+
+class Solution3 {
+  public int countPairs(TreeNode root, int distance) {
+        int[] result= new int[1];
+        dfs(root,distance,result);
+        return result[0];
+    }
+    private int[] dfs(TreeNode node,int distance, int[] result){
+        if(node==null){
+            return new int[distance+1];
+        }
+        if(node.left==null&&node.right==null){
+            int[] leafDistance = new int[distance+1];
+            leafDistance[1]=1;
+            return leafDistance;
+        }
+
+        int[] left=dfs(node.left,distance,result);
+        int[] right= dfs(node.right,distance,result);
+
+        //calculate result
+        for(int i=1;i<=distance;i++){
+            for(int j=1;j<=distance-i;j++){
+                result[0] += left[i]*right[j];
+            }
+        }
+
+        int[] leafDistance = new int[distance+1];
+        for(int i=1;i<distance;i++){
+            leafDistance[i+1]= left[i]+ right[i];
+        }
+        return leafDistance;
+    }
+}
+
+
+class Solution {
+    public int countPairs(TreeNode root, int distance) {
+        if (root == null) {
+            return 0;
+        }
+        int ans = countPairs(root.left, distance) + countPairs(root.right, distance);
+        int[] cnt1 = new int[distance];
+        int[] cnt2 = new int[distance];
+        dfs(root.left, cnt1, 1);
+        dfs(root.right, cnt2, 1);
+        for (int i = 0; i < distance; ++i) {
+            for (int j = 0; j < distance; ++j) {
+                if (i + j <= distance) {
+                    ans += cnt1[i] * cnt2[j];
+                }
+            }
+        }
+        return ans;
+    }
+
+    void dfs(TreeNode root, int[] cnt, int i) {
+        if (root == null || i >= cnt.length) {
+            return;
+        }
+        if (root.left == null && root.right == null) {
+            ++cnt[i];
+            return;
+        }
+        dfs(root.left, cnt, i + 1);
+        dfs(root.right, cnt, i + 1);
     }
 }
 
