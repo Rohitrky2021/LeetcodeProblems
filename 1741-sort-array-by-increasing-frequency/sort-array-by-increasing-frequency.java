@@ -73,7 +73,7 @@ class Solution2 {
 class Solution {
     public int[] frequencySort(int[] nums) {
         // Count frequencies using a TreeMap
-        Map<Integer, Integer> freqMap = new TreeMap<>();
+        Map<Integer, Integer> freqMap = new HashMap<>();
         for (int num : nums) {
             freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
         }
