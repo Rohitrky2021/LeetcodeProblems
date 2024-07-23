@@ -39,6 +39,7 @@ class Solution2 {
 
     public int[] frequencySort(int[] nums) {
         Map<Integer, Integer> freq = new HashMap<>();
+        
         for (int num : nums) {
             freq.put(num, freq.getOrDefault(num, 0) + 1);
         }
@@ -70,7 +71,7 @@ class Solution2 {
 }
 
  
-class Solution {
+class Solution3 {
     public int[] frequencySort(int[] nums) {
         // Count frequencies using a TreeMap
         Map<Integer, Integer> freqMap = new HashMap<>();
@@ -106,4 +107,41 @@ class Solution {
     }
 
    
+}
+
+ 
+
+class Solution {
+    public int[] frequencySort(int[] nums) {
+        // Count frequencies using a HashMap
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        // Create a TreeMap with a custom comparator that sorts by frequency and then by value
+        Map<Integer, Integer> sortedFreqMap = new TreeMap<>((a, b) -> {
+            int freqCompare = freqMap.get(a).compareTo(freqMap.get(b));
+            if (freqCompare != 0) {
+                return freqCompare;
+            } else {
+                return b.compareTo(a);  // Sort by value in reverse order if frequencies are the same
+            }
+        });
+
+        // Put all entries from the frequency map to the sorted frequency map
+        sortedFreqMap.putAll(freqMap);
+
+        // Build the result array
+        int[] ans = new int[nums.length];
+        int index = 0;
+        for (Map.Entry<Integer, Integer> entry : sortedFreqMap.entrySet()) {
+            for (int i = 0; i < entry.getValue(); i++) {
+                ans[index++] = entry.getKey();
+            }
+        }
+
+        return ans;
+    }
+ 
 }
