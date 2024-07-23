@@ -31,10 +31,5 @@ class Solution {
 
         return ans;
     }
-
-    public static void main(String[] args) {
-        Solution sol = new Solution();
-        int[] nums = {1, 1, 2, 2, 2, 3};
-        System.out.println(Arrays.toString(sol.frequencySort(nums)));
-    }
+ 
 }
