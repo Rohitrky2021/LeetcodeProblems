@@ -8,7 +8,7 @@ class Solution {
         var hs = new HashSet<Integer>();
 
         for (int i = 0; i < nums.length; i++) {
-            if (hs.contains(nums[i])) {
+            if (hs.contains(nums[i])) { // mtlb ye already kisi path m aagya tha mtlb merese tho chortaa he hoga 
                 continue;
             }
             int c = i;
@@ -26,7 +26,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] nums = {0,1,2}; // example input
+        int[] nums = {5, 4, 0, 3, 1, 6, 2}; // example input
         int result = solution.arrayNesting(nums);
         System.out.println("Result: " + result);
     }
