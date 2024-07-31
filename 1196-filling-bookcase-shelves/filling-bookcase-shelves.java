@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-class Solution {
+class Solution1 {
     public int minHeightShelves(int[][] books, int sw) {
         int ans = Integer.MAX_VALUE;
         HashMap<String, Integer> hm = new HashMap<>();
@@ -22,5 +22,41 @@ class Solution {
 
         hm.put(key, minHeight);
         return minHeight;
+    }
+}
+
+
+class Solution {
+    public int minHeightShelves(int[][] books, int shelfWidth) {
+        int[][] dp = new int[shelfWidth+1][books.length];
+
+        for(int i=0; i<dp.length; i++){
+            Arrays.fill(dp[i], -1);
+        }
+
+        return minHeightShelvesHelper(books, 0, shelfWidth, 0, shelfWidth, dp);
+        
+    }
+
+    public int minHeightShelvesHelper(int[][] books, int i, int currShelfWidth, int currMaxHeightRow, int shelfWidth, int[][] dp){
+        
+        if(i>=books.length){
+            return currMaxHeightRow;
+        }
+
+        if(dp[currShelfWidth][i] != -1){
+            return dp[currShelfWidth][i];
+        }
+        
+        int x = Integer.MAX_VALUE;
+        if(books[i][0] <= currShelfWidth){
+            x = minHeightShelvesHelper(books, i+1, currShelfWidth-books[i][0], Math.max(currMaxHeightRow, books[i][1]), shelfWidth, dp);
+        }
+        int y = Integer.MAX_VALUE;
+        if(currShelfWidth != shelfWidth){
+            y = currMaxHeightRow + minHeightShelvesHelper(books, i, shelfWidth, 0, shelfWidth, dp);
+        }
+        dp[currShelfWidth][i] = Math.min(x,y);
+        return dp[currShelfWidth][i];
     }
 }
