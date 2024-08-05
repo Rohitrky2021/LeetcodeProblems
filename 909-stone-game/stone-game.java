@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
     public boolean stoneGame(int[] piles) {
         int n = piles.length;
         Integer[][] memo = new Integer[n][n];
@@ -20,5 +20,12 @@ class Solution {
 
         memo[left][right] = Math.max(takeLeft, takeRight);
         return memo[left][right];
+    }
+}
+
+
+class Solution {
+    public boolean stoneGame(int[] piles) {
+    return true;    
     }
 }
