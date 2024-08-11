@@ -15,7 +15,7 @@ class Solution {
             return;
         }
         for (int i = index; i < arr.length; i++) {
-            if (i > index && arr[i] == arr[i - 1]) continue;
+            // if (i > index && arr[i] == arr[i - 1]) continue;
             if (target < arr[i]) break;
 
             list.add(arr[i]);
