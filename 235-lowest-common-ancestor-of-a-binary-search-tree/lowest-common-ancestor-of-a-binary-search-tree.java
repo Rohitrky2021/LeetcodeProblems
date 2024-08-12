@@ -1,8 +1,8 @@
 import java.util.*;
 
-class Solution {
+class Solution1 {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        
+
         List<TreeNode> l1 = new ArrayList<>();
         List<TreeNode> l2 = new ArrayList<>();
         lca(root, p, l1);
@@ -17,13 +17,15 @@ class Solution {
     }
 
     public boolean lca(TreeNode root, TreeNode p, List<TreeNode> l) {
-        if (root == null) return false;
+        if (root == null)
+            return false;
 
         l.add(root);
-        if (root == p) return true;
+        if (root == p)
+            return true;
 
-        if ((root.left != null && lca(root.left, p, l)) || 
-            (root.right != null && lca(root.right, p, l))) {
+        if ((root.left != null && lca(root.left, p, l)) ||
+                (root.right != null && lca(root.right, p, l))) {
             return true;
         }
 
@@ -33,3 +35,31 @@ class Solution {
     }
 }
 
+// Use the Greedy way as the Binary values on right are greater than the ones on the left
+class Solution2 {
+
+    public TreeNode lowestCommonAncestor(  TreeNode root,  TreeNode p,  TreeNode q) {
+        if (p.val > root.val && q.val > root.val)
+            return lowestCommonAncestor(  root.right,    p,  q);
+        if (p.val < root.val && q.val < root.val)
+            return lowestCommonAncestor(    root.left,   p,  q);
+        return root;
+    }
+}
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) {
+            return root;
+        }
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if (left != null && right != null) {
+            return root;
+        }
+
+        return left != null ? left : right;
+    }
+}
