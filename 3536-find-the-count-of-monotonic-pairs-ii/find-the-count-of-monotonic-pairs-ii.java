@@ -132,7 +132,7 @@ class Solution3 {
 }
 
  
-class Solution {
+class Solution4 {
     private static final int MOD = 1_000_000_007;
 
     public int countOfPairs(int[] nums) {
@@ -172,5 +172,44 @@ class Solution {
         }
 
         return comb[k];
+    }
+}
+
+
+ 
+class Solution {
+    private static final int N = 2001;
+    private static final int M = 1_000_000_007;
+
+    public int countOfPairs(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[N];
+        Arrays.fill(dp, 1);  // dp[i+1]
+
+        for (int i = n - 1; i >= 0; i--) {
+            int[] newDp = new int[N];
+            int[] prefix = new int[N];
+            
+            // Building the prefix sum array
+            prefix[0] = dp[0];
+            for (int j = 1; j < N; j++) {
+                prefix[j] = (prefix[j - 1] + dp[j]) % M;
+            }
+
+            // Transitioning from dp[i+1] to dp[i]
+            for (int prv1 = 0; prv1 <= 2000; prv1++) {
+                int prv2 = (i > 0) ? nums[i - 1] - prv1 : (int) 1e9;
+                if (prv2 < 0) break;
+
+                int l = Math.max(prv1, nums[i] - prv2);
+                int r = nums[i];
+
+                if (l <= r) {
+                    newDp[prv1] = (prefix[r] - (l > 0 ? prefix[l - 1] : 0) + M) % M;
+                }
+            }
+            dp = newDp;
+        }
+        return dp[0];
     }
 }
