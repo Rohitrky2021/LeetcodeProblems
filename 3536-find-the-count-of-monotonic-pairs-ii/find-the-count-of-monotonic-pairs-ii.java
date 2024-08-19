@@ -1,4 +1,4 @@
-class Solution {
+class Solution2 {
     private static final int MOD = 1_000_000_007;
 
     public int countOfPairs(int[] nums) {
@@ -81,5 +81,96 @@ class Solution1 { // TLE AS not opitmised
         memo.put(key, result);
 
         return result;
+    }
+}
+
+ 
+
+class Solution3 {
+    private static final int MOD = 1_000_000_007;
+
+    public int countOfPairs(int[] nums) {
+        int n = nums.length;
+        int[][] dp = new int[n][1001];
+
+        // Initialize the dp array for the first element
+        for (int j = 0; j <= nums[0]; j++) {
+            dp[0][j] = 1;
+        }
+
+        // Fill the dp array for the remaining elements
+        for (int i = 1; i < n; i++) {
+            int ways = 0;
+            int k = 0;
+            for (int j = 0; j <= nums[i]; j++) {
+               // problem I
+                // for (int j = 0; j <= nums[i]; j++){
+                //     int ways = 0;
+                //     for (int k = 0; k <= 50; k++){
+                //         if (k <= j && nums[i - 1] - k >= nums[i] - j)
+                //             ways = (ways + dp[i - 1][k]) % MOD;
+                //     }
+                //     dp[i][j] = ways;
+                // }
+                // problem II
+                if (k <= Math.min(j, j - (nums[i] - nums[i - 1]))) {
+                    ways = (ways + dp[i - 1][k]) % MOD;
+                    k++;
+                }
+                dp[i][j] = ways;
+            }
+        }
+
+        // Calculate the result
+        int res = 0;
+        for (int i = 0; i <= 1000; i++) {
+            res = (res + dp[n - 1][i]) % MOD;
+        }
+
+        return res;
+    }
+}
+
+ 
+class Solution {
+    private static final int MOD = 1_000_000_007;
+
+    public int countOfPairs(int[] nums) {
+        int n = nums.length;
+        int mn = nums[0];
+        int num1 = 0, num2 = mn;
+
+        for (int i = 1; i < n; i++) {
+            int num = nums[i];
+            if (num < num1) {
+                return 0;
+            }
+
+            if (num > num1 + num2) {
+                num1 = num - num2;
+            }
+
+            num2 = num - num1;
+
+            if (num2 < mn) {
+                mn = num2;
+            }
+        }
+
+        return combination(n + mn, mn) % MOD;
+    }
+
+    private int combination(int n, int k) {
+        // Calculate C(n, k) % MOD using dynamic programming
+        int[] comb = new int[k + 1];
+        comb[0] = 1;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = Math.min(i, k); j > 0; j--) {
+                comb[j] = (comb[j] + comb[j - 1]) % MOD;
+            }
+        }
+
+        return comb[k];
     }
 }
