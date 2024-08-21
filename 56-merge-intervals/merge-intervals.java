@@ -13,8 +13,8 @@ class Solution {
         for (int i = 1; i < intervals.length; i++) {
             int[] interval = intervals[i];
             
-            if (interval[0] <= mergedInterval[1]) {
-                mergedInterval[1] = Math.max(mergedInterval[1], interval[1]);//pehle waala andar aagya ab mereko max lena h kon jaada bhar nikla h
+            if (interval[0] <= mergedInterval[1]) {  // start with prev end 
+                mergedInterval[1] = Math.max(mergedInterval[1], interval[1]);//pehle waala andar aagya ab mereko max lena h kon jaada bhar nikla h m ya uska papa
             } else {
                 merged.add(mergedInterval);
                 mergedInterval = interval; 
@@ -26,3 +26,4 @@ class Solution {
         return merged.toArray(new int[merged.size()][]);        
     }
 }
+
