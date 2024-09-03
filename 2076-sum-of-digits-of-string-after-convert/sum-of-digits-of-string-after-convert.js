@@ -13,7 +13,7 @@ var getLucky = function(s, k) {
         while (k-- > 0) {
             let sum = 0;
             for (let i = 0; i < numStr.length; i++) {
-                sum += parseInt(numStr.charAt(i));
+                sum += parseInt(numStr[i]);
             }
             numStr = sum.toString();
         }
