@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Solution {
+class Solution1 {
     
     public int maximizeGreatness(int[] nums) {
         // Sort the nums array
@@ -34,6 +34,36 @@ class Solution {
             }
         }
         
+        return count;
+    }
+}
+
+
+ 
+
+class Solution {
+    
+    public int maximizeGreatness(int[] nums) {
+        // Sort the nums array
+        Arrays.sort(nums);
+
+        int n = nums.length;
+        int count = 0;
+
+        // Use two pointers to iterate over sorted arrays
+        int i = 0;  // pointer for the original sorted array (nums)
+        int j = 0;  // pointer for the permuted array (which we are implicitly creating)
+
+        // We aim to find a larger element in perm (which is sorted) for each nums[i]
+        while (j < n) {
+            if (nums[j] > nums[i]) {
+                // perm[j] > nums[i], so this contributes to the greatness count
+                count++;
+                i++;  // Move to the next element in nums to check
+            }
+            j++;  // Always move the pointer for perm
+        }
+
         return count;
     }
 }
