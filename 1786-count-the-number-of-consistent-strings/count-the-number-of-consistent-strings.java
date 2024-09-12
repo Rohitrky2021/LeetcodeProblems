@@ -1,22 +1,28 @@
-import java.util.TreeSet;
+import java.util.HashSet;
 
 class Solution {
     public int countConsistentStrings(String allowed, String[] words) {
         int count = 0;
 
-        TreeSet<Character> check = new TreeSet<>();
-        for (char y : allowed.toCharArray()) {
-            check.add(y);
+        // Store allowed characters in a HashSet for O(1) average lookup time
+        HashSet<Character> allowedSet = new HashSet<>();
+        for (char c : allowed.toCharArray()) {
+            allowedSet.add(c);
         }
 
-        TreeSet<Character> hs = new TreeSet<>();
-        for (String x : words) {
-            for (char y : x.toCharArray()) {
-                hs.add(y);
+        // Check each word
+        for (String word : words) {
+            boolean isConsistent = true;
+            // Check if every character in the word is in the allowed set
+            for (char c : word.toCharArray()) {
+                if (!allowedSet.contains(c)) {
+                    isConsistent = false;
+                    break;  // Early exit if any character is not allowed
+                }
             }
-            // Check if all characters in hs are part of check
-            if (check.containsAll(hs)) count++; 
-            hs.clear();
+            if (isConsistent) {
+                count++;
+            }
         }
 
         return count;
