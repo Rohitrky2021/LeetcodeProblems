@@ -21,7 +21,7 @@ class Solution1 {
 }
 
 
-class Solution {
+class Solution2 {
     public int minBitFlips(int start, int goal) {
         // XOR the two numbers to get the bits that differ
         int xor = start ^ goal;
@@ -34,5 +34,11 @@ class Solution {
         }
 
         return count;
+    }
+}
+
+class Solution {
+    public int minBitFlips(int start, int goal) {
+        return Integer.bitCount(start ^ goal);
     }
 }
