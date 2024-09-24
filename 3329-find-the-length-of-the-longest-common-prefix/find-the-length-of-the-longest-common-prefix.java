@@ -24,6 +24,7 @@ class Solution {
                 }
             }
         }
+        
 
         return max == Integer.MIN_VALUE ? 0 : max; // return 0 if no common prefix found
     }
