@@ -1,23 +1,22 @@
-
 import java.util.HashMap;
 
-// public class Solution {
-//     public int[] twoSum(int[] nums, int target) {
-//         HashMap<Integer, Integer> map = new HashMap<>();
+public class Solution1 {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-//         for (int i = 0; i < nums.length; i++) {
-//             int complement = target - nums[i];
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
             
-//             if (map.containsKey(complement)) {
-//                 return new int[]{map.get(complement), i};  // Most Imp Rember this line 
-//             }
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};  // Most Imp Rember this line 
+            }
             
-//             map.put(nums[i], i);
-//         }
+            map.put(nums[i], i);
+        }
         
-//         return new int[0]; // No valid solution found
-//     }
-// }
+        return new int[0]; // No valid solution found
+    }
+}
 
 class Solution {
     public int[] twoSum(int[] nums, int target) {
