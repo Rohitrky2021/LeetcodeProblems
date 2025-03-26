@@ -1,44 +1,68 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int val) { this.val = val; }
+ * }
+ */
+
 class Solution {
     public String getDirections(TreeNode root, int startValue, int destValue) {
+        // Find the Lowest Common Ancestor (LCA) of startValue and destValue
         TreeNode lca = findLCA(root, startValue, destValue);
 
-        // Path from LCA to startValue node
-        String pathToStart = getPath(lca, startValue, new StringBuilder());
-        // Transform the path from LCA to startValue to "U" (Up)
+        // Get path from LCA to startValue and convert it to "U" (Up)
+        String pathToStart = findPath(lca, startValue);
         String pathFromStartToLCA = "U".repeat(pathToStart.length());
 
-        // Path from LCA to destValue node
-        String pathToDest = getPath(lca, destValue, new StringBuilder());
+        // Get path from LCA to destValue
+        String pathToDest = findPath(lca, destValue);
 
+        // Concatenate paths to get the final directions
         return pathFromStartToLCA + pathToDest;
     }
 
-    // Helper method to find the LCA of two nodes
+    /**
+     * Finds the Lowest Common Ancestor (LCA) of two nodes.
+     */
     private TreeNode findLCA(TreeNode root, int p, int q) {
-        if (root == null || root.val == p || root.val == q) return root;
+        if (root == null || root.val == p || root.val == q) {
+            return root;
+        }
 
         TreeNode left = findLCA(root.left, p, q);
         TreeNode right = findLCA(root.right, p, q);
 
-        if (left != null && right != null) return root;
-        return left != null ? left : right;
+        if (left != null && right != null) return root; // LCA found
+        return (left != null) ? left : right; // Return the non-null subtree
     }
 
-    // Helper method to get the path from a node to a target value
-    private String getPath(TreeNode root, int value, StringBuilder path) {
-        if (root == null) return "";
-        if (root.val == value) return path.toString();
+    /**
+     * Finds the path from the given root node to the target value.
+     * Uses 'L' for left traversal and 'R' for right traversal.
+     */
+    private String findPath(TreeNode root, int target) {
+        StringBuilder path = new StringBuilder();
+        return dfs(root, target, path) ? path.toString() : "";
+    }
+
+    /**
+     * DFS Helper function to build the path.
+     */
+    private boolean dfs(TreeNode node, int target, StringBuilder path) {
+        if (node == null) return false;
+        if (node.val == target) return true;
 
         path.append('L');
-        String leftPath = getPath(root.left, value, path);
-        if (!leftPath.isEmpty()) return leftPath;
-        path.setLength(path.length() - 1);
+        if (dfs(node.left, target, path)) return true;
+        path.setLength(path.length() - 1); // Backtrack
 
         path.append('R');
-        String rightPath = getPath(root.right, value, path);
-        if (!rightPath.isEmpty()) return rightPath;
-        path.setLength(path.length() - 1);
+        if (dfs(node.right, target, path)) return true;
+        path.setLength(path.length() - 1); // Backtrack
 
-        return "";
+        return false;
     }
 }
