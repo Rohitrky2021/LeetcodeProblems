@@ -1,51 +1,33 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
-    
-    
-    Map<TreeNode, Integer> memo = new HashMap<>();
 
-    public int diameterOfBinaryTree(TreeNode root) {
-        if (root == null) {
-            return 0;
+    class Info {
+        int h;
+        int diam;
+
+        Info(int h, int diam) {
+            this.h = h;
+            this.diam = diam;
         }
-
-        int leftDiameter = diameterOfBinaryTree(root.left);
-        int rightDiameter = diameterOfBinaryTree(root.right);
-
-        int selfDiameter = height(root.left) + height(root.right);
-
-        return Math.max(leftDiameter, Math.max(rightDiameter, selfDiameter));
     }
 
-    public int height(TreeNode node) {
-        if (node == null) {
-            return 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        return helper(root).diam;
+    }
+
+    private Info helper(TreeNode root) {
+        if (root == null) {
+            return new Info(0, 0);
         }
 
-        if (memo.containsKey(node)) {
-            return memo.get(node);
-        }
+        Info leftInfo = helper(root.left);
+        Info rightInfo = helper(root.right);
 
-        int leftHeight = height(node.left);
-        int rightHeight = height(node.right);
+        int mlh = leftInfo.h;
+        int mrh = rightInfo.h;
 
-        int maxHeight = Math.max(leftHeight, rightHeight) + 1;
-        memo.put(node, maxHeight);
+        int height = Math.max(mlh, mrh) + 1;
+        int diameter = Math.max(leftInfo.diam, Math.max(rightInfo.diam, mlh + mrh));
 
-        return maxHeight;
+        return new Info(height, diameter);
     }
 }
