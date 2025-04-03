@@ -35,7 +35,7 @@ class Solution {
             dp[i][j] = val == true ? 1 : 0; // store kr lena then ans neeche return kr dena 
             return val;
         }else if(p.charAt(j) == '*'){
-            boolean val =  memo(s,p,i,j-1,dp) | memo(s,p, i-1, j,dp) | memo(s,p,i-1,j-1,dp);
+            boolean val =  (memo(s,p,i,j-1,dp) || memo(s,p, i-1, j,dp) || memo(s,p,i-1,j-1,dp));
             dp[i][j] = val == true ? 1 : 0;
             return val;
         }
