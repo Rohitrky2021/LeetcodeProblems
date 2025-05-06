@@ -112,7 +112,7 @@ class Solution3 {
 }
 
  
-public class Solution{
+public class Solution4{
 
     public static boolean wordBreak(String s, List<String> wordDict) {
         Set<String> wordSet = new HashSet<>(wordDict);
@@ -145,6 +145,36 @@ public class Solution{
     public static void main(String[] args) {
         String s = "leetcode";
         List<String> wordDict = Arrays.asList("leet", "code");
+        System.out.println(wordBreak(s, wordDict)); // Output: true
+    }
+}
+
+
+class Solution {
+
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> wordSet = new HashSet<>(wordDict);
+        int n = s.length();
+        boolean[] dp = new boolean[n + 1];
+
+        dp[0] = true; // base case: empty string
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                String sub = s.substring(j, i);
+                if (dp[j] && wordSet.contains(sub)) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+        String s = "applepenapple";
+        List<String> wordDict = Arrays.asList("apple", "pen");
         System.out.println(wordBreak(s, wordDict)); // Output: true
     }
 }
