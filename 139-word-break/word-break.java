@@ -1,5 +1,5 @@
  
-class Solution {
+class Solution1 {
     public boolean wordBreak(String s, List<String> wordDict) {
         boolean[] dp = new boolean[s.length() + 1];
         Set<String> words = new HashSet<>(wordDict);
@@ -108,5 +108,43 @@ class Solution3 {
         }
         memo[start] = false;
         return false;
+    }
+}
+
+ 
+public class Solution{
+
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> wordSet = new HashSet<>(wordDict);
+        Boolean[][] dp = new Boolean[s.length()][s.length()];
+
+        return solve(s, 0, s.length() - 1, wordSet, dp);
+    }
+
+    private static boolean solve(String s, int i, int j, Set<String> wordSet, Boolean[][] dp) {
+        if (i > j) return true;
+        if (dp[i][j] != null) return dp[i][j];
+
+        String sub = s.substring(i, j + 1);
+        if (wordSet.contains(sub)) {
+            dp[i][j] = true;
+            return true;
+        }
+
+        for (int k = i; k < j; k++) {
+            if (solve(s, i, k, wordSet, dp) && solve(s, k + 1, j, wordSet, dp)) {
+                dp[i][j] = true;
+                return true;
+            }
+        }
+
+        dp[i][j] = false;
+        return false;
+    }
+
+    public static void main(String[] args) {
+        String s = "leetcode";
+        List<String> wordDict = Arrays.asList("leet", "code");
+        System.out.println(wordBreak(s, wordDict)); // Output: true
     }
 }
